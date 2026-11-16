@@ -311,6 +311,83 @@ const T: Table[] = [
   }
 ];
 
+// ── Batch 2 tables ──
+T.push(
+  {
+    id: 'sua', pave: 'V', topic: 'v-airspace', acs: ['PA.I.E.K3'],
+    rows: [
+      { q: 'Prohibited area?', a: 'Flight is prohibited, for security or national welfare', c: ['aim:3-4-2'] },
+      { q: 'Restricted area?', a: 'Flight isn’t wholly prohibited but is subject to restrictions (e.g. hazards like artillery)', c: ['aim:3-4-3'] },
+      { q: 'Warning area?', a: 'Hazardous activity, from 3 NM outward from the U.S. coast', c: ['aim:3-4-4'] },
+      { q: 'Military Operations Area (MOA)?', a: 'Separates military training from IFR traffic; VFR pilots should use extreme caution when active', c: ['aim:3-4-5'] },
+      { q: 'Alert area?', a: 'High volume of pilot training or unusual aerial activity; be particularly alert', c: ['aim:3-4-6'] },
+      { q: 'Controlled firing area (CFA)?', a: 'Activities are suspended immediately when spotter aircraft, radar, or ground lookouts see an aircraft approaching', c: ['aim:3-4-7'] },
+      { q: 'Where is Class A airspace?', a: 'From 18,000 ft MSL up to and including FL 600', c: ['aim:3-2-2'] },
+      { q: 'Military Training Routes: which are generally flown VFR?', a: 'Routes at 1,500 ft AGL and below', c: ['aim:3-5-2'], x: ['Routes above 1,500 ft AGL', 'All routes above 10,000 MSL'] },
+      { q: 'MTRs are generally for operations at what speed?', a: 'In excess of 250 knots, below 10,000 MSL', c: ['aim:3-5-2'], x: ['Under 150 knots', 'Only supersonic'] },
+      { q: 'Requested minimum altitude over national parks and wildlife refuges?', a: '2,000 ft above the surface', c: ['aim:7-5-6'], x: ['1,000 ft above the surface', '500 ft above the surface'] }
+    ]
+  },
+  {
+    id: 'chartsym', pave: 'V', topic: 'v-airspace', acs: ['PA.I.E.K2'],
+    rows: [
+      { q: 'How is Class D shown on a sectional?', a: 'Dashed blue line, ceiling in a box in hundreds of feet MSL', c: ['cug:p. 16'] },
+      { q: 'How is Class C shown?', a: 'Magenta, with each sector’s ceiling/floor in solid magenta figures (hundreds of feet MSL)', c: ['cug:p. 16'] },
+      { q: 'How is a Class E surface area shown?', a: 'Dashed magenta line', c: ['cug:p. 16'] },
+      { q: 'What does a magenta vignette (shaded band) mean?', a: 'Class E floor begins at 700 ft AGL', c: ['cug:p. 17'] },
+      { q: 'What does a blue vignette along uncontrolled airspace usually mean?', a: 'A Class E floor other than 700 ft AGL, where it borders Class G', c: ['cug:p. 17'] },
+      { q: 'Airport symbol color: blue vs magenta?', a: 'Blue = control tower; magenta = all others', c: ['cug:p. 15'] },
+      { q: 'A star next to a tower frequency means…?', a: 'Part-time operation', c: ['cug:p. 15'] },
+      { q: '“*L” in an airport data block means…?', a: 'Lighting limitations exist; refer to the Chart Supplement', c: ['cug:p. 15'] },
+      { q: 'The number after the L in a data block (e.g. “L 66”)?', a: 'Longest runway in hundreds of feet', c: ['cug:p. 15'] },
+      { q: 'What does an MEF of 3⁹ mean?', a: 'Highest terrain/obstacle in the quadrant is at or below 3,900 ft MSL', c: ['cug:p. 12'] },
+      { q: 'What is an isogonic line?', a: 'A line of equal magnetic variation', c: ['cug:p. 32', 'phak:8-24'] }
+    ]
+  },
+  {
+    id: 'wakevision', pave: 'V', topic: 'v-wake', acs: ['PA.III.B.R3', 'PA.XI.A.K1'],
+    rows: [
+      { q: 'When are wingtip vortices strongest?', a: 'When the generating aircraft is heavy, clean, and slow', c: ['aim:7-4-3'] },
+      { q: 'How do vortices behave behind a larger aircraft?', a: 'They sink several hundred fpm, slowing and weakening with time and distance', c: ['aim:7-4-4'] },
+      { q: 'Near the ground, vortices drift laterally at about what speed?', a: '2 or 3 knots', c: ['aim:7-4-4'], x: ['10 knots', 'They don’t move'] },
+      { q: 'Which wind requires maximum caution for lingering vortices?', a: 'A light quartering tailwind', c: ['aim:7-4-4'], x: ['A strong headwind', 'Calm wind only'] },
+      { q: 'Landing behind a departing larger aircraft on the same runway?', a: 'Land well prior to its rotation point', c: ['aim:7-4-6'], x: ['Land beyond its rotation point', 'Land at its rotation point'] },
+      { q: 'How long for complete dark adaptation of your eyes?', a: 'At least 30 minutes in total darkness', c: ['aim:8-1-6'], x: ['5 minutes', '2 hours'] },
+      { q: 'Downside of red cockpit lighting at night?', a: 'It severely distorts colors, especially on charts', c: ['aim:8-1-6'], x: ['It ruins night vision', 'It causes hypoxia'] }
+    ]
+  },
+  {
+    id: 'wxtheory', pave: 'V', topic: 'v-wx-general', acs: ['PA.I.C.K3'],
+    rows: [
+      { q: 'Rime ice?', a: 'Rough, milky, opaque; small supercooled drops freeze instantly. Most often reported.', c: ['awh:20-2'] },
+      { q: 'Clear ice?', a: 'Denser and less opaque; drops freeze gradually and spread. Hard to see.', c: ['awh:20-2'] },
+      { q: 'Mixed ice?', a: 'A mix of clear and rime; harder to remove than rime', c: ['awh:20-3'] },
+      { q: 'What causes freezing rain?', a: 'A deep above-freezing layer aloft over a shallow below-freezing layer near the surface', c: ['awh:14-4'], x: ['Snow melting on the windshield', 'Rain falling through warm air all the way down'] },
+      { q: 'Thunderstorm stage with a strong updraft?', a: 'Towering cumulus stage', c: ['awh:22-2'] },
+      { q: 'When does a thunderstorm cell become mature?', a: 'When precipitation reaches the surface', c: ['awh:22-3'] },
+      { q: 'What marks the dissipating stage?', a: 'A strong downdraft within the precipitation', c: ['awh:22-3'] },
+      { q: 'A temperature inversion is…?', a: 'A layer where temperature increases with altitude', c: ['awh:5-12'], x: ['A layer where temperature drops faster than standard', 'A layer of 100% humidity'] },
+      { q: 'Microburst: how big, and how does it change after reaching the ground?', a: 'Downdraft under 1 mile wide; it intensifies for about 5 minutes after it hits', c: ['aim:7-1-24'], x: ['10 miles wide; weakens immediately', 'Only forms over water'] },
+      { q: 'Advection fog forms how, and where is it common?', a: 'Moist air moving over a colder surface; most common along coasts', c: ['awh:18-4'] },
+      { q: 'Radiation fog forms how?', a: 'Over land on clear, calm nights; shallow when wind is calm', c: ['awh:18-3'] }
+    ]
+  },
+  {
+    id: 'engineops', pave: 'A', topic: 'a-engine', acs: ['PA.I.G.K1c'],
+    rows: [
+      { q: 'What happens if you climb without leaning?', a: 'A progressively richer mixture: roughness and loss of power', c: ['phak:7-9'] },
+      { q: 'Effect of carburetor heat on power and mixture?', a: 'Power drops (up to about 15%) and the mixture gets richer', c: ['phak:7-10'] },
+      { q: 'Ground effect reduces induced drag most when…?', a: 'The wing is very close to the ground (about 47% at one-tenth wingspan)', c: ['phak:5-11'], x: ['The wing is one full wingspan up', 'Only above 1,000 ft'] },
+      { q: 'C152 magneto check at runup: limits?', a: 'At 1,700 RPM: no more than 125 RPM drop on either mag, 50 RPM difference', c: ['poh:4-14'] },
+      { q: 'Total loss of oil pressure with rising oil temperature?', a: 'Engine failure may be imminent: reduce power, pick a landing field', c: ['poh:3-14'] },
+      { q: 'Low oil pressure with normal oil temperature?', a: 'Possibly a gauge or relief valve problem; land at the nearest airport to inspect', c: ['poh:3-14'] },
+      { q: 'GTX 345: which mode on the ground and in the air?', a: 'ALT, unless ATC requests otherwise', c: ['gtx:2-1'], x: ['STBY on the ground', 'ON (no altitude) on the ground'] },
+      { q: 'GTX 345: what does the VFR key do?', a: 'Sets the preprogrammed VFR code', c: ['gtx:2-1'], x: ['Turns off altitude reporting', 'Sends an ident'] },
+      { q: 'VOR check tolerance: ground check vs airborne check?', a: '±4° ground, ±6° airborne', c: ['aim:1-1-4'], x: ['±6° ground, ±4° airborne', '±2° for both'] }
+    ]
+  }
+);
+
 const shuffle = <V,>(a: V[]) => a.map((v) => [Math.random(), v] as const).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
 
 function toItem(t: Table, r: Row, i: number): Item {
