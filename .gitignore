@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.DS_Store
+# Never commit copyrighted source documents (POH, handbooks) — keep them local only
+sources/private/
+*POH*.pdf
+*poh*.pdf
