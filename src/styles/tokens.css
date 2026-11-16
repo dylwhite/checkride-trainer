@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Design tokens — every color, size and timing in the app comes from here.
+   Dark mode is the default; light mode overrides the same names.
+   ========================================================================== */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  /* Surfaces */
+  --bg: #0b1220;          /* night cockpit navy */
+  --surface: #141d2f;     /* cards */
+  --raised: #1c2840;      /* raised elements, pressed states */
+  --border: #26344f;
+  /* Text */
+  --text: #e8eef8;
+  --text-2: #8b9ab5;
+  /* Accent */
+  --accent: #38bdf8;      /* instrument cyan */
+  --accent-ink: #0b1220;  /* text on accent */
+  --accent-soft: rgba(56, 189, 248, 0.14);
+  /* Feedback — airspeed indicator arcs */
+  --ok: #22c55e;          /* green arc */
+  --partial: #f5b942;     /* yellow arc */
+  --miss: #ef4444;        /* red line */
+  --ok-soft: rgba(34, 197, 94, 0.14);
+  --partial-soft: rgba(245, 185, 66, 0.14);
+  --miss-soft: rgba(239, 68, 68, 0.14);
+  /* PAVE */
+  --pave-p: #38bdf8;
+  --pave-a: #a78bfa;
+  --pave-v: #34d399;
+  --pave-e: #f59e0b;
+  /* Flight categories */
+  --fc-vfr: #22c55e;
+  --fc-mvfr: #3b82f6;
+  --fc-ifr: #ef4444;
+  --fc-lifr: #d946ef;
+  /* Elevation */
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --sheet-shadow: 0 -12px 40px rgba(0, 0, 0, 0.5);
+  --scrim: rgba(3, 7, 15, 0.6);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f3f6fb;
+  --surface: #ffffff;
+  --raised: #e9eef6;
+  --border: #d3dbe8;
+  --text: #0b1220;
+  --text-2: #4a5873;
+  --accent: #0369a1;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(3, 105, 161, 0.1);
+  --ok: #15803d;
+  --partial: #a16207;
+  --miss: #dc2626;
+  --ok-soft: rgba(21, 128, 61, 0.1);
+  --partial-soft: rgba(161, 98, 7, 0.1);
+  --miss-soft: rgba(220, 38, 38, 0.08);
+  --pave-p: #0369a1;
+  --pave-a: #7c3aed;
+  --pave-v: #047857;
+  --pave-e: #b45309;
+  --fc-vfr: #15803d;
+  --fc-mvfr: #1d4ed8;
+  --fc-ifr: #dc2626;
+  --fc-lifr: #a21caf;
+  --shadow: 0 8px 24px rgba(15, 30, 60, 0.08);
+  --sheet-shadow: 0 -10px 30px rgba(15, 30, 60, 0.15);
+  --scrim: rgba(11, 18, 32, 0.35);
+}
+
+:root {
+  /* Typography — the base size follows the iPhone's Text Size setting */
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace;
+  --fs-title: 2rem;       /* ~34px large title */
+  --fs-h2: 1.3rem;        /* ~22px */
+  --fs-h3: 1.06rem;       /* ~18px */
+  --fs-body: 1rem;        /* 17px */
+  --fs-sm: 0.88rem;       /* ~15px */
+  --fs-xs: 0.76rem;       /* ~13px — small caps labels */
+
+  /* Spacing (4pt grid) */
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 20px;
+  --s6: 24px;
+  --s8: 32px;
+  --s10: 40px;
+
+  --radius: 20px;
+  --radius-sm: 14px;
+  --radius-pill: 999px;
+  --tap: 48px;            /* minimum tap target (≥44px) */
+  --tabbar-h: 64px;
+
+  /* Safe areas (notch / home bar) */
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+
+  /* Motion */
+  --t-fast: 150ms;
+  --t-med: 220ms;
+  --t-slow: 320ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 0ms;
+    --t-med: 0ms;
+    --t-slow: 0ms;
+  }
+}

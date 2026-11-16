@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="75%">
+      <stop offset="0" stop-color="#16233D"/>
+      <stop offset="1" stop-color="#0B1220"/>
+    </radialGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38BDF8" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-200%" width="140%" height="500%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <!-- horizon -->
+  <rect x="0" y="332" width="512" height="120" fill="url(#ground)"/>
+  <rect x="40" y="328" width="432" height="8" rx="4" fill="#38BDF8" filter="url(#glow)" opacity="0.9"/>
+  <rect x="40" y="329" width="432" height="6" rx="3" fill="#38BDF8"/>
+  <!-- airplane, head-on, high wing -->
+  <g fill="#E8EEF8">
+    <!-- vertical fin -->
+    <path d="M250 150 L262 150 L265 206 L247 206 Z"/>
+    <!-- horizontal stabilizer -->
+    <rect x="196" y="214" width="120" height="8" rx="4" opacity="0.55"/>
+    <!-- wing -->
+    <path d="M64 196 Q64 188 74 188 L438 188 Q448 188 448 196 L448 200 Q448 206 440 206 L72 206 Q64 206 64 200 Z"/>
+    <!-- cabin / fuselage -->
+    <path d="M230 200 L282 200 Q290 200 290 210 L292 262 Q292 280 274 282 L238 282 Q220 280 220 262 L222 210 Q222 200 230 200 Z"/>
+    <!-- struts -->
+    <path d="M150 204 L158 204 L226 266 L220 272 Z"/>
+    <path d="M362 204 L354 204 L286 266 L292 272 Z"/>
+    <!-- main gear legs -->
+    <path d="M226 270 L232 272 L200 304 L194 300 Z"/>
+    <path d="M286 270 L280 272 L312 304 L318 300 Z"/>
+    <!-- wheels -->
+    <rect x="186" y="296" width="16" height="26" rx="7"/>
+    <rect x="310" y="296" width="16" height="26" rx="7"/>
+    <rect x="252" y="282" width="8" height="18"/>
+    <rect x="248" y="298" width="16" height="24" rx="7"/>
+  </g>
+  <!-- propeller blur line -->
+  <rect x="196" y="238" width="120" height="5" rx="2.5" fill="#38BDF8" opacity="0.85"/>
+  <circle cx="256" cy="240.5" r="7" fill="#0B1220" stroke="#38BDF8" stroke-width="3"/>
+</svg>
