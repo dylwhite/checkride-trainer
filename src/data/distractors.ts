@@ -284,7 +284,7 @@ export const DISTRACTORS: Record<string, string[]> = {
   'What does PIC responsibility (14 CFR 91.3) include in an emergency?': ['You may deviate only if ATC approves first', 'You may deviate from any rule, with no report ever required', 'You may deviate only from altitude assignments'],
   'What must you know before every flight (14 CFR 91.103)?': ['Weather and fuel only, for any flight', 'Runway lengths only for flights away from your home airport', 'Weather, NOTAMs, and passenger weights only'],
   'Part 141 private: how much checkride prep training is required, and when?': ['3 hours within 90 days before the test', '3 hours within 2 calendar months before the test', '1 hour within 60 days before the test'],
-  'Part 141 private: solo cross-country requirement?': ['150 NM total, landings at 3 points, one leg over 50 NM', '100 NM total, landings at 2 points, one leg over 50 NM', '100 NM total, landings at 3 points, one leg over 25 NM'],
+  'Part 141 private: solo cross-country requirement?': ['150 NM total, landings at 3 points, one leg over 50 NM straight-line', '100 NM total, landings at 2 points, one leg over 50 NM straight-line', '100 NM total, landings at 3 points, one leg over 25 NM straight-line'],
   'Who may perform preventive maintenance on the 152?': ['Any certificated pilot, on any aircraft they fly, with no logbook entry', 'Only an A&P mechanic', 'A student pilot who owns it, with an instructor sign-off'],
   'How long does a standard airworthiness certificate last?': ['Until the next annual inspection', '7 years, like the registration', 'Until ownership changes'],
   'Who is primarily responsible for AD compliance?': ['The mechanic who did the last annual', 'The pilot in command on each flight', 'The aircraft manufacturer'],

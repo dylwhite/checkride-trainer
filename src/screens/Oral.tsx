@@ -11,13 +11,34 @@ import { PAVE, type Item } from '../data/types';
 import { useImmersive } from '../lib/immersive';
 import { go } from '../lib/router';
 import { fill, logAnswer } from '../lib/session';
+import { startCheckride, useCheckrideSave } from './Checkride';
 
-type Exchange =
+export type Exchange =
   | { kind: 'mc'; item: Item; vars: Record<string, string> }
   | { kind: 'open'; item: Item; vars: Record<string, string>; q: string; a: string[]; c: string[]; tag: string };
 
 const pick = <T,>(a: T[]) => a[Math.floor(Math.random() * a.length)];
 const shuffle = <T,>(a: T[]) => a.map((v) => [Math.random(), v] as const).sort((x, y) => x[0] - y[0]).map((x) => x[1]);
+
+// The examiner's chain for one item: decision, why, what-ifs, where-is-it, quick recall.
+export function chainFor(item: Item, vars: Record<string, string>, all: Item[], rnd: () => number = Math.random): Exchange[] {
+  const out: Exchange[] = [{ kind: 'mc', item, vars }];
+  if (item.kind === 'recall') return out;
+  out.push({ kind: 'open', item, vars, tag: 'Why?', q: 'Why? Walk me through the rule or concept behind your answer.', a: item.explain, c: item.c });
+  for (const w of WHAT_IF[item.id] ?? []) out.push({ kind: 'open', item, vars, tag: 'What if…', q: w.q, a: w.a, c: w.c });
+  out.push({
+    kind: 'open', item, vars, tag: 'Where is that?',
+    q: 'Where would you find that? Name the regulation, AIM paragraph, or POH section.',
+    a: item.c.map((k) => { const r = cite(k); return `**${r.label}**: ${r.doc.title}`; }),
+    c: item.c
+  });
+  const pool = all.filter((i) => i.kind === 'recall' && i.topic === item.topic && i.id !== item.id);
+  const follow = item.next ? byId(item.next, all) : pool[Math.floor(rnd() * pool.length)];
+  if (follow) out.push(follow.answer
+    ? { kind: 'open', item: follow, vars, tag: 'Quick recall', q: follow.prompt, a: follow.answer, c: follow.c }
+    : { kind: 'mc', item: follow, vars });
+  return out;
+}
 
 function buildOral(rounds = 3): Exchange[] {
   const all = bank();
@@ -29,19 +50,7 @@ function buildOral(rounds = 3): Exchange[] {
   for (const item of shuffle(chosen)) {
     const vars: Record<string, string> = {};
     for (const [k, o] of Object.entries(item.vars ?? {})) vars[k] = pick(o);
-    out.push({ kind: 'mc', item, vars });
-    out.push({ kind: 'open', item, vars, tag: 'Why?', q: 'Why? Walk me through the rule or concept behind your answer.', a: item.explain, c: item.c });
-    for (const w of WHAT_IF[item.id] ?? []) out.push({ kind: 'open', item, vars, tag: 'What if…', q: w.q, a: w.a, c: w.c });
-    out.push({
-      kind: 'open', item, vars, tag: 'Where is that?',
-      q: 'Where would you find that? Name the regulation, AIM paragraph, or POH section.',
-      a: item.c.map((k) => { const r = cite(k); return `**${r.label}**: ${r.doc.title}`; }),
-      c: item.c
-    });
-    const follow = item.next ? byId(item.next, all) : pick(all.filter((i) => i.kind === 'recall' && i.topic === item.topic && i.id !== item.id));
-    if (follow) out.push(follow.answer
-      ? { kind: 'open', item: follow, vars, tag: 'Quick recall', q: follow.prompt, a: follow.answer, c: follow.c }
-      : { kind: 'mc', item: follow, vars });
+    out.push(...chainFor(item, vars, all));
   }
   return out;
 }
@@ -53,15 +62,30 @@ export function Oral() {
 }
 
 function OralIntro({ onStart }: { onStart: () => void }) {
+  const saved = useCheckrideSave();
+  const inProgress = saved && !saved.done;
   return (
     <main class="screen stack-lg">
       <h1 class="title" style={{ paddingTop: 'var(--s2)' }}>Mock DPE Oral</h1>
-      <div class="card stack examiner-intro">
+      <div class="card mission stack examiner-intro">
         <div class="examiner-avatar"><IconOral /></div>
-        <p class="h3">“Let’s talk through a few situations. I’ll ask why, ask what-if, and ask where it’s written.”</p>
-        <p class="muted">Answer out loud or type it, then reveal the model answer and grade yourself honestly. Three scenarios, about 10 minutes. Stop any time; answers are saved.</p>
+        <p class="label" style={{ color: 'var(--pave-a)' }}>Full mock checkride</p>
+        <p class="h3">“We’ll go in the order of the ACS, built around the cross-country you planned.”</p>
+        <p class="muted">Starts with your qualifications, then airworthiness, weather, planning, airspace, performance, systems, human factors, airport operations, navigation, emergencies, and night. About 80 exchanges; your place is saved, so finish it over several sittings.</p>
+        {inProgress ? (
+          <>
+            <button class="btn btn-primary btn-block" onClick={() => go('checkride')}>Continue the checkride</button>
+            <button class="btn btn-ghost btn-block" onClick={() => { if (confirm('Start a new checkride? Your place in the current one will be lost (answers stay saved).')) startCheckride(); }}>Start over</button>
+          </>
+        ) : (
+          <button class="btn btn-primary btn-block" onClick={() => startCheckride()}>Start the checkride</button>
+        )}
       </div>
-      <button class="btn btn-primary btn-block" onClick={onStart}>Start the oral</button>
+      <div class="card stack">
+        <p class="label">Quick oral</p>
+        <p class="muted">Three random scenarios with why, what-if, and where-is-it follow-ups. About 10 minutes.</p>
+        <button class="btn btn-ghost btn-block" onClick={onStart}>Start a quick oral</button>
+      </div>
     </main>
   );
 }
@@ -105,7 +129,7 @@ function OralRun() {
   );
 }
 
-function ExchangeView({ ex, onDone, onNext }: { ex: Exchange; onDone: (v: Verdict) => void; onNext: () => void }) {
+export function ExchangeView({ ex, onDone, onNext }: { ex: Exchange; onDone: (v: Verdict) => void; onNext: () => void }) {
   const f = (t: string) => fill(t, ex.vars);
   const item = ex.item;
   const pv = PAVE[item.pave];
