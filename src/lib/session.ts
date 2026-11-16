@@ -1,5 +1,5 @@
 // Builds short study sessions from the item bank and fills in scenario variables.
-import { ITEMS, itemById } from '../data/items';
+import { bank, byId } from '../data/bank';
 import type { Item } from '../data/types';
 import { load, save } from './storage';
 
@@ -29,15 +29,19 @@ function step(item: Item, shared: Record<string, string> = {}): SessionStep {
 }
 
 // Items that are someone's follow-up only appear right after their lead item.
-const followUps = new Set(ITEMS.map((i) => i.next).filter(Boolean) as string[]);
+function followUpIds(items: Item[]) {
+  return new Set(items.map((i) => i.next).filter(Boolean) as string[]);
+}
 
-export function buildSession(leads = 5): SessionStep[] {
-  const pool = shuffle(ITEMS.filter((i) => !followUps.has(i.id)));
+export function buildSession(leads = 5, filter: (i: Item) => boolean = () => true): SessionStep[] {
+  const all = bank();
+  const fu = followUpIds(all);
+  const pool = shuffle(all.filter((i) => !fu.has(i.id) && filter(i)));
   const steps: SessionStep[] = [];
   for (const lead of pool.slice(0, leads)) {
     const s = step(lead);
     steps.push(s);
-    const f = lead.next && itemById(lead.next);
+    const f = lead.next && byId(lead.next, all);
     if (f) steps.push(step(f, s.vars));
   }
   return steps;
