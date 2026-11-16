@@ -66,7 +66,7 @@ const T: Table[] = [
       { q: 'C152 precautionary landing with engine power: final approach speed?', a: '55 KIAS', c: ['poh:3-3'] },
       { q: 'C152 short-field approach speed (flaps 30°)?', a: '54 KIAS', c: ['poh:4-3'] },
       { q: 'C152 normal approach speed with flaps 30°?', a: '55–65 KIAS', c: ['poh:4-3'], x: ['70–80 KIAS', '60–70 KIAS'] },
-      { q: 'C152 maximum demonstrated crosswind?', a: '12 knots', c: ['poh:4-3'], x: ['15 knots', '17 knots', '10 knots'] },
+      { q: 'C152 maximum demonstrated crosswind?', a: '12 knots', more: ['12 knots, which the POH notes is not a limitation. It’s what was demonstrated in testing, so treat it as a guide to your own skill.'], c: ['poh:4-3', 'poh:5-11'], x: ['15 knots', '17 knots', '10 knots'] },
       { q: 'C152 airspeed indicator white arc?', a: '35–85 KIAS (full flap operating range)', c: ['poh:2-4'] },
       { q: 'C152 airspeed indicator green arc?', a: '40–111 KIAS (normal operating range)', c: ['poh:2-4'] },
       { q: 'C152 airspeed indicator yellow arc?', a: '111–149 KIAS (caution range, smooth air only)', c: ['poh:2-4'] },
