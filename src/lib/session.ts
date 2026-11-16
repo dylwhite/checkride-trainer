@@ -1,7 +1,9 @@
 // Builds short study sessions from the item bank and fills in scenario variables.
 import { bank, byId } from '../data/bank';
 import type { Item } from '../data/types';
+import { prioritize, type AnswerLog, type TopicState, type Verdict } from './progress';
 import { load, save } from './storage';
+export type { Verdict, AnswerLog };
 
 export interface SessionStep {
   item: Item;
@@ -33,10 +35,14 @@ function followUpIds(items: Item[]) {
   return new Set(items.map((i) => i.next).filter(Boolean) as string[]);
 }
 
-export function buildSession(leads = 5, filter: (i: Item) => boolean = () => true): SessionStep[] {
+export function buildSession(leads = 5, filter: (i: Item) => boolean = () => true, topics?: Map<string, TopicState>): SessionStep[] {
   const all = bank();
   const fu = followUpIds(all);
-  const pool = shuffle(all.filter((i) => !fu.has(i.id) && filter(i)));
+  const eligible = all.filter((i) => !fu.has(i.id) && filter(i));
+  // With spaced-repetition data: due topics first, one question per topic, then fill randomly.
+  const ordered = topics ? prioritize(eligible, topics) : [];
+  const rest = shuffle(eligible.filter((i) => !ordered.includes(i)));
+  const pool = [...ordered, ...rest];
   const steps: SessionStep[] = [];
   for (const lead of pool.slice(0, leads)) {
     const s = step(lead);
@@ -47,17 +53,10 @@ export function buildSession(leads = 5, filter: (i: Item) => boolean = () => tru
   return steps;
 }
 
-export type Verdict = 'ok' | 'partial' | 'miss';
-export interface AnswerLog {
-  id: string;
-  v: Verdict;
-  at: number;
-}
-
 // Every answer is saved immediately, so quitting mid-session loses nothing.
-export async function logAnswer(id: string, v: Verdict) {
+export async function logAnswer(id: string, v: Verdict, extra: { topic?: string; xp?: number } = {}) {
   const log = await load<AnswerLog[]>('answers', []);
-  log.push({ id, v, at: Date.now() });
+  log.push({ id, v, at: Date.now(), ...extra });
   await save('answers', log);
 }
 
@@ -73,7 +72,7 @@ export async function weakTopics(limit = 4): Promise<string[]> {
   const topicOf = new Map(all.map((i) => [i.id, i.topic]));
   const score = new Map<string, { bad: number; n: number }>();
   for (const a of log) {
-    const t = topicOf.get(a.id);
+    const t = a.topic ?? topicOf.get(a.id);
     if (!t) continue;
     const s = score.get(t) ?? { bad: 0, n: 0 };
     s.n++;
@@ -98,6 +97,8 @@ export async function drillFilter(kind: string): Promise<(i: Item) => boolean> {
       const t = new Set(await weakTopics());
       return (i) => t.has(i.topic);
     }
-    default: return () => true;
+    default:
+      if (kind.startsWith('topic:')) { const id = kind.slice(6); return (i) => i.topic === id; }
+      return () => true;
   }
 }

@@ -72,7 +72,7 @@ function OralRun() {
   const [i, setI] = useState(0);
   const [tally, setTally] = useState({ ok: 0, partial: 0, miss: 0 });
   const done = i >= ex.length;
-  const record = (id: string, v: Verdict) => { logAnswer(id, v); setTally((t) => ({ ...t, [v]: t[v] + 1 })); };
+  const record = (it: Item, v: Verdict) => { logAnswer(it.id, v, { topic: it.topic, xp: v === 'ok' ? 15 : v === 'partial' ? 7 : 0 }); setTally((t) => ({ ...t, [v]: t[v] + 1 })); };
 
   return (
     <main class="screen full">
@@ -86,7 +86,7 @@ function OralRun() {
         <span class="q-count">{Math.min(i + 1, ex.length)}/{ex.length}</span>
       </div>
       {!done ? (
-        <ExchangeView key={i} ex={ex[i]} onDone={(v) => record(ex[i].item.id, v)} onNext={() => { setI(i + 1); window.scrollTo(0, 0); }} />
+        <ExchangeView key={i} ex={ex[i]} onDone={(v) => record(ex[i].item, v)} onNext={() => { setI(i + 1); window.scrollTo(0, 0); }} />
       ) : (
         <div class="stack-lg" style={{ textAlign: 'center', paddingTop: 'var(--s10)' }}>
           <div class="verdict-icon" style={{ '--c': 'var(--pave-a)', margin: '0 auto', width: '72px', height: '72px' }}><IconOral width={36} height={36} /></div>

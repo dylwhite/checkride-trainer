@@ -117,7 +117,7 @@ function FlyRun({ s, onChange }: { s: StorySave; onChange: (s: StorySave) => voi
         <div class="stack">
           <p class="label" style={{ color: 'var(--accent)' }}>Briefing · {brief[step - 1].title}</p>
           <StepView key={step} step={{ item: brief[step - 1].item, vars: {} }}
-            onAnswered={(v) => { logAnswer(brief[step - 1].item.id, v); s.results.push({ title: brief[step - 1].title, v }); }}
+            onAnswered={(v) => { logAnswer(brief[step - 1].item.id, v, { topic: brief[step - 1].item.topic, xp: v === 'ok' ? 15 : 0 }); s.results.push({ title: brief[step - 1].title, v }); }}
             onNext={() => advance({ results: s.results })} />
         </div>
       )}
@@ -125,7 +125,7 @@ function FlyRun({ s, onChange }: { s: StorySave; onChange: (s: StorySave) => voi
       {step === goStep && (
         <GoNoGo story={story} onDecide={(call) => {
           const ok = (call === 'go') === shouldGo;
-          logAnswer('story-gonogo', ok ? 'ok' : 'miss');
+          logAnswer('story-gonogo', ok ? 'ok' : 'miss', { topic: 'p-adm', xp: ok ? 25 : 0 });
           advance({ goCall: call, results: [...s.results, { title: 'Go/no-go call', v: ok ? 'ok' : 'miss' }] });
         }} />
       )}
@@ -134,7 +134,7 @@ function FlyRun({ s, onChange }: { s: StorySave; onChange: (s: StorySave) => voi
         <div class="stack">
           <p class="label" style={{ color: 'var(--accent)' }}>{legs[step - firstLeg].title}</p>
           <StepView key={step} step={{ item: legs[step - firstLeg].item, vars: legs[step - firstLeg].vars ?? {} }}
-            onAnswered={(v) => { logAnswer(legs[step - firstLeg].item.id, v); s.results.push({ title: legs[step - firstLeg].title, v }); }}
+            onAnswered={(v) => { logAnswer(legs[step - firstLeg].item.id, v, { topic: legs[step - firstLeg].item.topic, xp: v === 'ok' ? 20 : 0 }); s.results.push({ title: legs[step - firstLeg].title, v }); }}
             onNext={() => advance({ results: s.results })} />
         </div>
       )}

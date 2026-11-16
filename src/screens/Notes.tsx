@@ -5,6 +5,11 @@ import { Rich } from '../components/Rich';
 import { NOTES, type NoteKind } from '../data/notes';
 import { OUTLINE } from '../data/outline';
 import { PAVE, type Pave } from '../data/types';
+import { bank } from '../data/bank';
+import { minimumsText } from '../data/minimums';
+import { mastery } from '../lib/progress';
+import { go } from '../lib/router';
+import { useProgress } from '../lib/useProgress';
 
 const KIND: Record<NoteKind, { label: string; color: string; Icon: any; blurb: string }> = {
   wrong: { label: 'Wrong', color: 'var(--miss)', Icon: IconX, blurb: 'Fix these first. An examiner would catch them.' },
@@ -57,12 +62,15 @@ export function NotesCheck() {
 
 export function StudyGuide() {
   const [open, setOpen] = useState<string | null>(null);
+  const prog = useProgress();
+  const all = bank();
+  const qCount = (id: string) => all.filter((i) => i.topic === id).length;
   return (
     <main class="screen stack-lg">
       <div style={{ paddingTop: 'var(--s2)' }}>
         <Back />
         <h1 class="title">Study Guide</h1>
-        <p class="muted" style={{ marginTop: 'var(--s2)' }}>Your PAVE outline, completed and sourced. Topics marked “Added” weren’t in your outline.</p>
+        <p class="muted" style={{ marginTop: 'var(--s2)' }}>Your PAVE outline, completed and sourced, with your mastery of each topic. Topics marked “Added” weren’t in your outline.</p>
       </div>
       {(Object.keys(PAVE) as Pave[]).map((p) => (
         <section key={p} class="stack" aria-labelledby={`sg-${p}`}>
@@ -79,10 +87,28 @@ export function StudyGuide() {
                       <br />
                       <span class="muted mono" style={{ fontSize: 'var(--fs-xs)' }}>{t.acs.slice(0, 3).join(' · ')}</span>
                     </span>
-                    <span aria-hidden="true" class="muted">{isOpen ? '−' : '+'}</span>
+                    <span class="mono muted" style={{ fontSize: 'var(--fs-xs)', textAlign: 'right' }}>
+                      {prog?.topics.has(t.id) ? `${Math.round(mastery(prog.topics.get(t.id)) * 100)}%` : qCount(t.id) ? 'new' : ''}
+                      <br /><span aria-hidden="true">{isOpen ? '−' : '+'}</span>
+                    </span>
                   </button>
                   {isOpen && (
                     <div class="guide-body stack">
+                      {qCount(t.id) > 0 ? (
+                        <button class="btn btn-primary btn-block" onClick={() => go(`question?drill=topic:${t.id}&t=300`)}>
+                          Practice this topic ({qCount(t.id)} questions)
+                        </button>
+                      ) : (
+                        <p class="muted" style={{ fontSize: 'var(--fs-sm)' }}>No practice questions for this topic yet. Ask Claude Code to add a batch.</p>
+                      )}
+                      {t.id === 'p-adm' && (
+                        <div class="callout"><b>Your personal minimums: </b>{minimumsText()}.</div>
+                      )}
+                      {NOTES.filter((n) => n.topicId === t.id).map((n) => (
+                        <div key={n.id} class="callout" style={{ borderLeft: `3px solid ${KIND[n.kind].color}` }}>
+                          <b>Notes Check · {KIND[n.kind].label}: </b><Rich text={n.fix} />
+                        </div>
+                      ))}
                       {t.user.length > 0 && (
                         <div>
                           <p class="label">Your notes</p>

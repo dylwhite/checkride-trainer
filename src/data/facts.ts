@@ -9,6 +9,7 @@ interface Row {
   more?: string[]; // fuller answer for the flashcard
   c: string[];
   x?: string[]; // extra hand-written distractors
+  topic?: string; // overrides the table's topic
 }
 interface Table {
   id: string;
@@ -83,9 +84,9 @@ const T: Table[] = [
       { q: 'C152 CG reference datum?', a: 'Front face of the firewall', c: ['poh:2-6'], x: ['Tip of the propeller spinner', 'Leading edge of the wing'] },
       { q: 'C152 flight load factor limits, flaps up?', a: '+4.4g / −1.76g', c: ['poh:2-7'], x: ['+3.8g / −1.52g', '+6.0g / −3.0g'] },
       { q: 'C152 flight load factor limit, flaps down?', a: '+3.5g', c: ['poh:2-7'] },
-      { q: 'C152 standard tanks: total and usable fuel?', a: '26 gal total, 24.5 gal usable', c: ['poh:2-7'] },
+      { topic: 'a-fuel', q: 'C152 standard tanks: total and usable fuel?', a: '26 gal total, 24.5 gal usable', c: ['poh:2-7'] },
       { q: 'C152 long-range tanks: total and usable fuel?', a: '39 gal total, 37.5 gal usable', c: ['poh:2-7'] },
-      { q: 'C152 approved fuel grades?', a: '100LL (blue) or grade 100 (green)', c: ['poh:2-8'], x: ['80/87 (red) or 100LL (blue)', 'Jet A or 100LL'] },
+      { topic: 'a-fuel', q: 'C152 approved fuel grades?', a: '100LL (blue) or grade 100 (green)', c: ['poh:2-8'], x: ['80/87 (red) or 100LL (blue)', 'Jet A or 100LL'] },
       { q: 'C152 max engine speed?', a: '2,550 RPM', c: ['poh:2-4'] },
       { q: 'C152 oil pressure: minimum, normal, maximum?', a: '25 psi min, 60–90 psi normal, 115 psi max', c: ['poh:2-5'] },
       { q: 'C152 max oil temperature?', a: '245 °F', c: ['poh:2-5'], x: ['220 °F', '260 °F'] },
@@ -105,7 +106,7 @@ const T: Table[] = [
       { q: 'When must ELT batteries be replaced or recharged?', a: 'After more than 1 cumulative hour of use, or at 50% of useful life', c: ['cfr14:91.207(c)'] },
       { q: 'Altimeter/static system check: interval and when required?', a: '24 calendar months, for IFR in controlled airspace', c: ['cfr14:91.411'] },
       { q: 'VOR check interval for IFR?', a: 'Within the preceding 30 days', c: ['cfr14:91.171'], x: ['Within 10 days', 'Within 90 days'] },
-      { q: 'How long is an aircraft registration valid?', a: 'Seven years', c: ['cfr14:47.40(a)'], x: ['Three years', 'Indefinitely'] }
+      { topic: 'a-reg', q: 'How long is an aircraft registration valid?', a: 'Seven years', c: ['cfr14:47.40(a)'], x: ['Three years', 'Indefinitely'] }
     ]
   },
   {
@@ -115,20 +116,20 @@ const T: Table[] = [
       { q: 'Third-class medical, 40 or older at the exam: how long for private privileges?', a: 'Until the end of the 24th month after the exam month', c: ['cfr14:61.23(d)'] },
       { q: 'Second-class medical for commercial privileges lasts…?', a: 'Until the end of the 12th month after the exam month', c: ['cfr14:61.23(d)'] },
       { q: 'First-class medical for ATP privileges, 40 or older?', a: 'Until the end of the 6th month after the exam month', c: ['cfr14:61.23(d)'] },
-      { q: 'Flight review: how often and how long?', a: 'Every 24 calendar months; at least 1 hr ground + 1 hr flight', c: ['cfr14:61.56'] },
-      { q: 'Passenger-carrying currency (day)?', a: '3 takeoffs and landings in the preceding 90 days, same category and class', c: ['cfr14:61.57(a)'] },
-      { q: 'Night passenger currency?', a: '3 takeoffs and landings to a full stop, 1 hr after sunset to 1 hr before sunrise, within 90 days', c: ['cfr14:61.57(b)'] },
-      { q: 'BasicMed: how often the online course and the physician exam?', a: 'Course every 24 calendar months; exam every 48 calendar months', c: ['cfr14:61.23(c)(3)(i)'] },
-      { q: 'Alcohol rule for crewmembers?', a: 'Not within 8 hours of drinking, not under the influence, not at 0.04 or higher', c: ['cfr14:91.17(a)'] },
-      { q: 'What documents must you carry to act as PIC?', a: 'Pilot certificate, medical (or BasicMed), and photo ID, in your possession or readily accessible', c: ['cfr14:61.3'], x: ['Pilot certificate and logbook', 'Pilot certificate only'] },
-      { q: 'Minimum age for a private pilot certificate (airplane)?', a: '17', c: ['cfr14:61.103(a)'], x: ['16', '18'] }
+      { topic: 'p-legal', q: 'Flight review: how often and how long?', a: 'Every 24 calendar months; at least 1 hr ground + 1 hr flight', c: ['cfr14:61.56'] },
+      { topic: 'p-currency', q: 'Passenger-carrying currency (day)?', a: '3 takeoffs and landings in the preceding 90 days, same category and class', c: ['cfr14:61.57(a)'] },
+      { topic: 'p-currency', q: 'Night passenger currency?', a: '3 takeoffs and landings to a full stop, 1 hr after sunset to 1 hr before sunrise, within 90 days', c: ['cfr14:61.57(b)'] },
+      { topic: 'p-basicmed', q: 'BasicMed: how often the online course and the physician exam?', a: 'Course every 24 calendar months; exam every 48 calendar months', c: ['cfr14:61.23(c)(3)(i)'] },
+      { topic: 'p-imsafe', q: 'Alcohol rule for crewmembers?', a: 'Not within 8 hours of drinking, not under the influence, not at 0.04 or higher', c: ['cfr14:91.17(a)'] },
+      { topic: 'p-resp', q: 'What documents must you carry to act as PIC?', a: 'Pilot certificate, medical (or BasicMed), and photo ID, in your possession or readily accessible', c: ['cfr14:61.3'], x: ['Pilot certificate and logbook', 'Pilot certificate only'] },
+      { topic: 'p-cert', q: 'Minimum age for a private pilot certificate (airplane)?', a: '17', c: ['cfr14:61.103(a)'], x: ['16', '18'] }
     ]
   },
   {
     id: 'ops', pave: 'E', topic: 'e-regs', acs: ['PA.I.A.K2', 'PA.I.D.K3c'],
     rows: [
-      { q: 'VFR fuel reserve during the day?', a: '30 minutes at normal cruise', c: ['cfr14:91.151(a)'] },
-      { q: 'VFR fuel reserve at night?', a: '45 minutes at normal cruise', c: ['cfr14:91.151(a)'] },
+      { topic: 'v-fuelreq', q: 'VFR fuel reserve during the day?', a: '30 minutes at normal cruise', c: ['cfr14:91.151(a)'] },
+      { topic: 'v-fuelreq', q: 'VFR fuel reserve at night?', a: '45 minutes at normal cruise', c: ['cfr14:91.151(a)'] },
       { q: 'Oxygen: cabin altitude above 12,500 up to 14,000 ft?', a: 'Required crew must use it for the part of the flight over 30 minutes', c: ['cfr14:91.211(a)'] },
       { q: 'Oxygen: cabin altitude above 14,000 ft?', a: 'Required crew must use it the entire time', c: ['cfr14:91.211(a)'] },
       { q: 'Oxygen: cabin altitude above 15,000 ft?', a: 'Each occupant must be provided with oxygen', c: ['cfr14:91.211(a)'] },
@@ -139,8 +140,8 @@ const T: Table[] = [
       { q: 'Speed limit within 4 NM of the primary airport of Class C or D, at or below 2,500 AGL?', a: '200 KIAS', c: ['cfr14:91.117(b)'] },
       { q: 'How does 14 CFR 1.1 define “night”?', a: 'End of evening civil twilight to beginning of morning civil twilight', c: ['cfr14:1.1'] },
       { q: 'When are position lights required?', a: 'Sunset to sunrise', c: ['cfr14:91.209(a)'] },
-      { q: 'VFR cruising altitude on a magnetic course of 0–179°, above 3,000 AGL?', a: 'Odd thousands + 500 (e.g. 5,500)', c: ['cfr14:91.159(a)'] },
-      { q: 'VFR cruising altitude on a magnetic course of 180–359°, above 3,000 AGL?', a: 'Even thousands + 500 (e.g. 6,500)', c: ['cfr14:91.159(a)'] }
+      { topic: 'v-nav', q: 'VFR cruising altitude on a magnetic course of 0–179°, above 3,000 AGL?', a: 'Odd thousands + 500 (e.g. 5,500)', c: ['cfr14:91.159(a)'] },
+      { topic: 'v-nav', q: 'VFR cruising altitude on a magnetic course of 180–359°, above 3,000 AGL?', a: 'Even thousands + 500 (e.g. 6,500)', c: ['cfr14:91.159(a)'] }
     ]
   },
   {
@@ -194,11 +195,11 @@ const T: Table[] = [
       { q: 'Antidote for invulnerability (“It won’t happen to me.”)?', a: 'It could happen to me.', c: ['phak:2-5'] },
       { q: 'Antidote for macho (“I can do it.”)?', a: 'Taking chances is foolish.', c: ['phak:2-5'] },
       { q: 'Antidote for resignation (“What’s the use?”)?', a: 'I’m not helpless. I can make a difference.', c: ['phak:2-5'] },
-      { q: 'What does DECIDE stand for?', a: 'Detect, Estimate, Choose, Identify, Do, Evaluate', c: ['phak:2-18'], x: ['Define, Evaluate, Choose, Implement, Debrief, Execute', 'Detect, Evaluate, Communicate, Investigate, Decide, Execute'] },
-      { q: 'What are the 5 Ps?', a: 'Plan, Plane, Pilot, Passengers, Programming', c: ['phak:2-13'], x: ['Pilot, Plane, Place, People, Preparation', 'Plan, Preflight, Pilot, Passengers, Power'] },
-      { q: 'What are the three steps of the 3P model?', a: 'Perceive, Process, Perform', c: ['phak:2-15'], x: ['Plan, Prepare, Perform', 'Pilot, Plane, Programming'] },
-      { q: 'What does IMSAFE stand for?', a: 'Illness, Medication, Stress, Alcohol, Fatigue, Emotion', c: ['phak:2-8'], x: ['Illness, Medication, Sleep, Alcohol, Food, Exercise', 'Injury, Mood, Stress, Age, Fatigue, Eyesight'] },
-      { q: 'What does PAVE stand for?', a: 'Pilot, Aircraft, enVironment, External pressures', c: ['phak:2-8'], x: ['Plan, Airspace, Visibility, Equipment', 'Pilot, Airport, Vehicle, Engine'] }
+      { topic: 'p-adm', q: 'What does DECIDE stand for?', a: 'Detect, Estimate, Choose, Identify, Do, Evaluate', c: ['phak:2-18'], x: ['Define, Evaluate, Choose, Implement, Debrief, Execute', 'Detect, Evaluate, Communicate, Investigate, Decide, Execute'] },
+      { topic: 'p-adm', q: 'What are the 5 Ps?', a: 'Plan, Plane, Pilot, Passengers, Programming', c: ['phak:2-13'], x: ['Pilot, Plane, Place, People, Preparation', 'Plan, Preflight, Pilot, Passengers, Power'] },
+      { topic: 'p-3p', q: 'What are the three steps of the 3P model?', a: 'Perceive, Process, Perform', c: ['phak:2-15'], x: ['Plan, Prepare, Perform', 'Pilot, Plane, Programming'] },
+      { topic: 'p-imsafe', q: 'What does IMSAFE stand for?', a: 'Illness, Medication, Stress, Alcohol, Fatigue, Emotion', c: ['phak:2-8'], x: ['Illness, Medication, Sleep, Alcohol, Food, Exercise', 'Injury, Mood, Stress, Age, Fatigue, Eyesight'] },
+      { topic: 'p-adm', q: 'What does PAVE stand for?', a: 'Pilot, Aircraft, enVironment, External pressures', c: ['phak:2-8'], x: ['Plan, Airspace, Visibility, Equipment', 'Pilot, Airport, Vehicle, Engine'] }
     ]
   },
   {
@@ -274,10 +275,10 @@ const T: Table[] = [
       { q: 'Accelerating on an east or west heading, the magnetic compass shows…?', a: 'A turn toward north (decelerating: toward south)', c: ['phak:8-26'] },
       { q: 'Turning to north in the Northern Hemisphere, when do you stop the turn on the compass?', a: 'Before reaching the heading: about 15° plus half your latitude', c: ['phak:8-26'] },
       { q: 'Turning to south, when do you stop the turn on the compass?', a: 'After passing the heading: about 15° plus half your latitude', c: ['phak:8-26'] },
-      { q: 'What is pressure altitude?', a: 'The altitude indicated with 29.92 set in the altimeter', c: ['phak:8-6'] },
-      { q: 'What is density altitude?', a: 'Pressure altitude corrected for nonstandard temperature', c: ['phak:8-6'] },
-      { q: 'What is absolute altitude?', a: 'Height above the terrain (AGL)', c: ['phak:8-6'] },
-      { q: 'What is true altitude?', a: 'Actual height above mean sea level', c: ['phak:8-6'] }
+      { topic: 'e-perf', q: 'What is pressure altitude?', a: 'The altitude indicated with 29.92 set in the altimeter', c: ['phak:8-6'] },
+      { topic: 'e-perf', q: 'What is density altitude?', a: 'Pressure altitude corrected for nonstandard temperature', c: ['phak:8-6'] },
+      { topic: 'e-perf', q: 'What is absolute altitude?', a: 'Height above the terrain (AGL)', c: ['phak:8-6'] },
+      { topic: 'e-perf', q: 'What is true altitude?', a: 'Actual height above mean sea level', c: ['phak:8-6'] }
     ]
   },
   {
@@ -341,7 +342,7 @@ T.push(
       { q: '“*L” in an airport data block means…?', a: 'Lighting limitations exist; refer to the Chart Supplement', c: ['cug:p. 15'] },
       { q: 'The number after the L in a data block (e.g. “L 66”)?', a: 'Longest runway in hundreds of feet', c: ['cug:p. 15'] },
       { q: 'What does an MEF of 3⁹ mean?', a: 'Highest terrain/obstacle in the quadrant is at or below 3,900 ft MSL', c: ['cug:p. 12'] },
-      { q: 'What is an isogonic line?', a: 'A line of equal magnetic variation', c: ['cug:p. 32', 'phak:8-24'] }
+      { topic: 'v-nav', q: 'What is an isogonic line?', a: 'A line of equal magnetic variation', c: ['cug:p. 32', 'phak:8-24'] }
     ]
   },
   {
@@ -383,7 +384,7 @@ T.push(
       { q: 'Low oil pressure with normal oil temperature?', a: 'Possibly a gauge or relief valve problem; land at the nearest airport to inspect', c: ['poh:3-14'] },
       { q: 'GTX 345: which mode on the ground and in the air?', a: 'ALT, unless ATC requests otherwise', c: ['gtx:2-1'], x: ['STBY on the ground', 'ON (no altitude) on the ground'] },
       { q: 'GTX 345: what does the VFR key do?', a: 'Sets the preprogrammed VFR code', c: ['gtx:2-1'], x: ['Turns off altitude reporting', 'Sends an ident'] },
-      { q: 'VOR check tolerance: ground check vs airborne check?', a: '±4° ground, ±6° airborne', c: ['aim:1-1-4'], x: ['±6° ground, ±4° airborne', '±2° for both'] }
+      { topic: 'v-nav', q: 'VOR check tolerance: ground check vs airborne check?', a: '±4° ground, ±6° airborne', c: ['aim:1-1-4'], x: ['±6° ground, ±4° airborne', '±2° for both'] }
     ]
   }
 );
@@ -425,10 +426,10 @@ T.push(
       { q: 'C152 service ceiling (POH)?', a: '14,700 ft', c: ['poh:ii'], x: ['12,500 ft', '18,000 ft', '10,000 ft'] },
       { q: 'C152 rate of climb at sea level (POH specs)?', a: '715 fpm', c: ['poh:ii'], x: ['500 fpm', '1,000 fpm', '900 fpm'] },
       { q: 'C152 oil capacity (POH specs)?', a: '7 quarts', c: ['poh:ii'], x: ['6 quarts', '8 quarts', '5 quarts'] },
-      { q: 'C152 unusable fuel?', a: '1.5 gal total (0.75 gal each tank)', c: ['poh:2-7', 'poh:2-5'], x: ['3 gal total', '0.5 gal total'] },
-      { q: 'Why re-top the C152’s tanks after refueling?', a: 'Cross-feeding between tanks: re-topping assures maximum capacity', c: ['poh:2-8'], x: ['To cool the fuel', 'To check for water'] },
-      { q: 'Minimum fuel for which C152 takeoffs were demonstrated?', a: '2 gallons total (1 per tank). Takeoffs weren’t demonstrated with less.', c: ['poh:2-8'], x: ['5 gallons total', 'Half tanks'] },
-      { q: 'What does the C152 primer draw from?', a: 'The fuel strainer; it injects fuel into the cylinder intake ports', c: ['poh:7-19'], x: ['The left tank only', 'The carburetor bowl'] },
+      { topic: 'a-fuel', q: 'C152 unusable fuel?', a: '1.5 gal total (0.75 gal each tank)', c: ['poh:2-7', 'poh:2-5'], x: ['3 gal total', '0.5 gal total'] },
+      { topic: 'a-fuel', q: 'Why re-top the C152’s tanks after refueling?', a: 'Cross-feeding between tanks: re-topping assures maximum capacity', c: ['poh:2-8'], x: ['To cool the fuel', 'To check for water'] },
+      { topic: 'a-fuel', q: 'Minimum fuel for which C152 takeoffs were demonstrated?', a: '2 gallons total (1 per tank). Takeoffs weren’t demonstrated with less.', c: ['poh:2-8'], x: ['5 gallons total', 'Half tanks'] },
+      { topic: 'a-fuel', q: 'What does the C152 primer draw from?', a: 'The fuel strainer; it injects fuel into the cylinder intake ports', c: ['poh:7-19'], x: ['The left tank only', 'The carburetor bowl'] },
       { q: 'Max rate of climb at 1,670 lb, 4,000 ft, 20 °C (POH)?', a: '505 fpm', c: ['poh:5-13'], x: ['600 fpm', '415 fpm', '700 fpm'] },
       { q: 'Short-field takeoff at sea level, 20 °C, 1,670 lb: total over 50 ft (POH)?', a: '1,390 ft', c: ['poh:5-12'], x: ['1,190 ft', '1,495 ft', '2,080 ft'] },
       { q: 'Short-field takeoff at 6,000 ft PA, 30 °C, 1,670 lb: total over 50 ft (POH)?', a: '2,855 ft', c: ['poh:5-12'], x: ['2,250 ft', '3,255 ft', '2,525 ft'] },
@@ -456,20 +457,20 @@ T.push(
   {
     id: 'regs2', pave: 'P', topic: 'p-privileges', acs: ['PA.I.A.K2', 'PA.I.E.K1'],
     rows: [
-      { q: 'Special VFR: weather and clearance (fixed-wing, day)?', a: 'ATC clearance, clear of clouds, 1 SM flight visibility (1 SM ground visibility to take off or land)', c: ['cfr14:91.157(b)', 'cfr14:91.157(c)'] },
-      { q: 'Special VFR at night requires…?', a: 'An instrument rating and an IFR-equipped airplane', c: ['cfr14:91.157(b)'], x: ['Only a landing light', 'Nothing extra'] },
-      { q: 'Name two Appendix D airports near you where fixed-wing SVFR is prohibited.', a: 'Portland International and Seattle-Tacoma', c: ['cfr14:91 App. D'], x: ['Hillsboro and Troutdale', 'Eugene and Salem'] },
-      { q: 'Speed limit under a Class B shelf or in a VFR corridor?', a: '200 KIAS', c: ['cfr14:91.117(c)'] },
+      { topic: 'v-airspace', q: 'Special VFR: weather and clearance (fixed-wing, day)?', a: 'ATC clearance, clear of clouds, 1 SM flight visibility (1 SM ground visibility to take off or land)', c: ['cfr14:91.157(b)', 'cfr14:91.157(c)'] },
+      { topic: 'v-airspace', q: 'Special VFR at night requires…?', a: 'An instrument rating and an IFR-equipped airplane', c: ['cfr14:91.157(b)'], x: ['Only a landing light', 'Nothing extra'] },
+      { topic: 'v-airspace', q: 'Name two Appendix D airports near you where fixed-wing SVFR is prohibited.', a: 'Portland International and Seattle-Tacoma', c: ['cfr14:91 App. D'], x: ['Hillsboro and Troutdale', 'Eugene and Salem'] },
+      { topic: 'e-regs', q: 'Speed limit under a Class B shelf or in a VFR corridor?', a: '200 KIAS', c: ['cfr14:91.117(c)'] },
       { q: 'Private pilot as aircraft salesman: requirement to demo?', a: 'At least 200 hours logged', c: ['cfr14:61.113(f)'], x: ['500 hours', 'A commercial certificate'] },
       { q: 'What can a private pilot be reimbursed for on a sanctioned search and location mission?', a: 'Fuel, oil, airport expenditures, or rental fees', c: ['cfr14:61.113(e)'], x: ['Their time', 'Nothing'] },
       { q: 'Glider tow recency (14 CFR 61.69)?', a: '3 actual or simulated tows (or 3 towed-glider PIC flights) within the preceding 24 calendar months', c: ['cfr14:61.69'], x: ['3 tows in 12 months', '1 tow in 90 days'] },
-      { q: 'What does PIC responsibility (14 CFR 91.3) include in an emergency?', a: 'You may deviate from any rule to the extent needed to meet the emergency', c: ['cfr14:91.3'], x: ['You must still follow every rule', 'Only ATC may authorize deviations'] },
-      { q: 'What must you know before every flight (14 CFR 91.103)?', a: 'All available information: weather, fuel, alternatives, known ATC delays, runway lengths, takeoff and landing data', c: ['cfr14:91.103'], x: ['Only the weather', 'Only fuel and weight'] },
-      { q: 'Part 141 private: how much checkride prep training is required, and when?', a: '3 hours within 60 days before the test', c: ['cfr14:141 App. B 4(b)(1)(iv)'], x: ['3 hours within 90 days', '1 hour within 30 days'] },
-      { q: 'Part 141 private: solo cross-country requirement?', a: '100 NM total, landings at 3 points, one leg over 50 NM straight-line', c: ['cfr14:141 App. B 5(a)'], x: ['150 NM total, one leg over 50 NM', '50 NM total'] },
-      { q: 'Who may perform preventive maintenance on the 152?', a: 'A certificated pilot who owns or operates it (not under Part 121/129/135), and it must be logged', c: ['cfr14:43.3(g)', 'cfr14:43.9'] },
-      { q: 'How long does a standard airworthiness certificate last?', a: 'As long as maintenance is done per Parts 43 and 91 and the aircraft is U.S.-registered', c: ['cfr14:21.181(a)'], x: ['7 years', '12 calendar months'] },
-      { q: 'Who is primarily responsible for AD compliance?', a: 'The owner or operator', c: ['cfr14:91.403(a)'], x: ['The mechanic', 'The FAA'] }
+      { topic: 'p-resp', q: 'What does PIC responsibility (14 CFR 91.3) include in an emergency?', a: 'You may deviate from any rule to the extent needed to meet the emergency', c: ['cfr14:91.3'], x: ['You must still follow every rule', 'Only ATC may authorize deviations'] },
+      { topic: 'p-resp', q: 'What must you know before every flight (14 CFR 91.103)?', a: 'All available information: weather, fuel, alternatives, known ATC delays, runway lengths, takeoff and landing data', c: ['cfr14:91.103'], x: ['Only the weather', 'Only fuel and weight'] },
+      { topic: 'p-cert', q: 'Part 141 private: how much checkride prep training is required, and when?', a: '3 hours within 60 days before the test', c: ['cfr14:141 App. B 4(b)(1)(iv)'], x: ['3 hours within 90 days', '1 hour within 30 days'] },
+      { topic: 'p-cert', q: 'Part 141 private: solo cross-country requirement?', a: '100 NM total, landings at 3 points, one leg over 50 NM straight-line', c: ['cfr14:141 App. B 5(a)'], x: ['150 NM total, one leg over 50 NM', '50 NM total'] },
+      { topic: 'a-prevmx', q: 'Who may perform preventive maintenance on the 152?', a: 'A certificated pilot who owns or operates it (not under Part 121/129/135), and it must be logged', c: ['cfr14:43.3(g)', 'cfr14:43.9'] },
+      { topic: 'a-awcert', q: 'How long does a standard airworthiness certificate last?', a: 'As long as maintenance is done per Parts 43 and 91 and the aircraft is U.S.-registered', c: ['cfr14:21.181(a)'], x: ['7 years', '12 calendar months'] },
+      { topic: 'a-ads', q: 'Who is primarily responsible for AD compliance?', a: 'The owner or operator', c: ['cfr14:91.403(a)'], x: ['The mechanic', 'The FAA'] }
     ]
   },
   {
@@ -501,9 +502,32 @@ T.push({
     { q: 'Landing behind a larger aircraft on a crossing runway?', a: 'Cross above its flight path', c: ['aim:7-4-6'], x: ['Cross below its flight path', 'Land before the intersection always'] },
     { q: 'For accurate MOA hours, whom should you contact?', a: 'Any FSS within 100 miles of the area', c: ['aim:3-4-5'], x: ['The nearest tower', 'The military base by phone only'] },
     { q: 'ILS critical area holding position marking?', a: 'Two solid yellow lines connected by pairs of solid lines (ladder-like)', c: ['aim:2-3-5'], x: ['Four yellow lines, two solid two dashed', 'A single white bar'] },
-    { q: 'BasicMed: may your most recent FAA medical be expired?', a: 'Yes, as long as it wasn’t suspended, revoked, or denied', c: ['cfr14:61.23(c)(3)(ii)'], x: ['No, it must be current', 'Only if it was first class'] },
+    { topic: 'p-basicmed', q: 'BasicMed: may your most recent FAA medical be expired?', a: 'Yes, as long as it wasn’t suspended, revoked, or denied', c: ['cfr14:61.23(c)(3)(ii)'], x: ['No, it must be current', 'Only if it was first class'] },
     { q: 'A VSI in level flight with a blocked static port shows…?', a: 'Zero, continuously, even in a climb or descent', c: ['phak:8-11'], x: ['A constant climb', 'Wild swings'] },
     { q: 'What does a squawk of 7500 tell ATC?', a: 'Unlawful interference (hijack)', c: ['aim:4-1-20'], x: ['Radio failure', 'Medical emergency'] }
+  ]
+});
+
+T.push({
+  id: 'gaps', pave: 'P', topic: 'p-endorse', acs: ['PA.I.A.K1', 'PA.I.B.K1a'],
+  rows: [
+    { q: 'What makes an airplane “complex”?', a: 'Retractable gear, flaps, and a controllable-pitch propeller (or FADEC)', c: ['cfr14:61.1', 'cfr14:61.31(e)'], x: ['More than 200 hp', 'A glass cockpit'] },
+    { q: 'What makes an airplane “high performance”?', a: 'An engine of more than 200 horsepower', c: ['cfr14:61.31(f)'], x: ['More than 180 hp', 'Retractable gear'] },
+    { q: 'When do you need the high-altitude endorsement?', a: 'PIC of a pressurized aircraft with a service ceiling or max operating altitude above 25,000 ft MSL', c: ['cfr14:61.31(g)'], x: ['Above 18,000 ft in any aircraft', 'Above 12,500 ft'] },
+    { q: 'What do you need to act as PIC of a tailwheel airplane?', a: 'Flight training from an authorized instructor and a one-time logbook endorsement', c: ['cfr14:61.31(i)'], x: ['A type rating', 'Nothing extra'] },
+    { topic: 'p-qual', q: 'What does the FAA call your “license”?', a: 'A private pilot certificate (airplane category, single-engine land class)', c: ['cfr14:61.5'], x: ['A private pilot license', 'A sport pilot permit'] },
+    { topic: 'a-sfp', q: 'What does FSDO stand for?', a: 'Flight Standards District Office', c: ['phak:1-9'], x: ['Flight Service District Office', 'Federal Safety Directorate Office'] },
+    { topic: 'a-sfp', q: 'How long is a special flight permit valid?', a: 'For the period specified in the permit', c: ['cfr14:21.181(a)(2)'], x: ['30 days', 'Until the next annual'] },
+    { topic: 'e-brief', q: 'Before takeoff, what must the PIC brief every passenger on (14 CFR 91.107)?', a: 'How to fasten and unfasten their safety belt and shoulder harness', c: ['cfr14:91.107(a)(1)'], x: ['Emergency exits only', 'Nothing is required'] },
+    { topic: 'e-brief', q: 'When must passengers be told to fasten their belts (14 CFR 91.107)?', a: 'Before moving on the surface, takeoff, and landing', c: ['cfr14:91.107(a)(2)'], x: ['Only for takeoff', 'Only in turbulence'] },
+    { topic: 'a-logs', q: 'Who must make sure maintenance entries approving return to service are in the records?', a: 'The owner or operator', c: ['cfr14:91.405(b)'], x: ['The pilot renting it', 'The FAA'] },
+    { topic: 'a-docs', q: 'Which POH limitations are FAA approved?', a: 'Section 2 limitations and the Section 9 supplements', c: ['poh:2-3'], x: ['Only Section 5 performance', 'None; they’re advisory'] },
+    { topic: 'a-docs', q: 'Name placards required in your 152’s view.', a: 'Kinds of operations, “intentional spins prohibited with flaps extended,” “flight into known icing prohibited”', c: ['poh:2-9'], x: ['Only the fuel placard', 'Only the registration number'] },
+    { topic: 'a-hyd', q: 'C152 brakes go spongy or pedal travel increases. What does the POH say?', a: 'Pump the pedals to build pressure; if one brake fails, use the other sparingly with opposite rudder', c: ['poh:7-22'], x: ['Pull the parking brake', 'Shut down the engine'] },
+    { topic: 'v-lost', q: 'FAA guidance when lost: first steps?', a: 'Climb (watching traffic and weather) for better radio, nav, and radar coverage; use VOR/GPS; communicate', c: ['phak:16-34'], x: ['Descend to read signs', 'Circle until fuel is low'] },
+    { topic: 'v-lost', q: 'What is direction-finding (DF) assistance?', a: 'A facility locates you by your transmissions: you key the mic when asked and turn as directed', c: ['phak:16-34'], x: ['A GPS mode', 'A transponder code'] },
+    { topic: 'v-flightplan', q: 'Why activate your VFR flight plan?', a: 'It ensures you receive VFR search and rescue services', c: ['aim:5-1-5'], x: ['It gives you ATC separation', 'It’s required for all flights'] },
+    { topic: 'v-flightplan', q: 'If you don’t update a late departure, search and rescue is based on…?', a: 'Your assumed (filed) departure time', c: ['aim:5-1-5'], x: ['Your actual departure time', 'Your arrival airport’s hours'] }
   ]
 });
 
@@ -517,7 +541,7 @@ function toItem(t: Table, r: Row, i: number): Item {
     kind: 'recall',
     emergency: t.emergency,
     pave: t.pave,
-    topic: t.topic,
+    topic: r.topic ?? t.topic,
     acs: t.acs,
     prompt: r.q,
     choices: [{ t: r.a, ok: true }, ...wrong.map((w) => ({ t: w }))],
