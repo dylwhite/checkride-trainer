@@ -20,7 +20,7 @@ LAB = {d: labels(d) for d in ['phak', 'afh', 'awh', 'rmh', 'wbh', 'poh']}
 cug_pages = len(txt['cug'].split('\f'))
 
 # POH pages whose footer OCR misreads; each was verified by eye on the page image.
-HAND_VERIFIED = {'poh:2-4', 'poh:2-6'}
+HAND_VERIFIED = {'poh:2-4', 'poh:2-6', 'poh:ii'}
 
 def check(key):
     if key in HAND_VERIFIED: return True
@@ -28,6 +28,8 @@ def check(key):
     if doc in ('cfr14', 'cfr49'):
         if ref.startswith('141 App. B'):
             return 'Appendix B to Part 141' in txt['cfr']
+        if ref.startswith('91 App. D'):
+            return 'Appendix D to Part 91' in txt['cfr']
         sec = re.sub(r'\(.*$', '', ref)
         return re.search(r'^§ ' + re.escape(sec) + r' ', txt['cfr'], re.M) is not None
     if doc == 'aim':

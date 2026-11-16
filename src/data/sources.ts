@@ -48,6 +48,7 @@ export function cite(key: string): ResolvedCite {
   switch (id) {
     case 'cfr14': {
       if (ref.startsWith('141 App. B')) return { doc, label: '14 CFR Part 141 App. B' + ref.slice(10), url: 'https://www.ecfr.gov/current/title-14/part-141' };
+      if (ref.startsWith('91 App. D')) return { doc, label: '14 CFR Part 91 App. D', url: 'https://www.ecfr.gov/current/title-14/chapter-I/subchapter-F/part-91/appendix-Appendix%20D%20to%20Part%2091' };
       const sec = ref.replace(/\(.*$/, '');
       return { doc, label: `14 CFR ${ref}`, url: `https://www.ecfr.gov/current/title-14/section-${sec}` };
     }

@@ -183,8 +183,8 @@ export const OUTLINE: Topic[] = [
     facts: [
       { t: 'Avco Lycoming O-235-N2C: normally aspirated, direct-drive, air-cooled, horizontally opposed, carburetor-equipped, four-cylinder, 233.3 cu in displacement.', c: ['poh:1-3'] },
       { t: '108 rated BHP at 2550 RPM. Max engine speed 2550 RPM.', c: ['poh:1-3', 'poh:2-4'] },
-      { t: 'Fixed-pitch, two-blade propeller, 69 in max / 67.5 in min diameter (POH lists the McCauley prop; check your airplane’s equipment list for the installed prop).', c: ['poh:1-3'] },
-      { t: 'Static full-throttle RPM range (carb heat off, mixture leaned for max RPM): 2280–2380 RPM.', c: ['poh:2-4'] }
+      { t: 'Fixed-pitch, two-blade propeller. Your airplane has a Sensenich prop. The POH’s Section 1–2 propeller data (McCauley 1A103/TCM6958, 69 in max / 67.5 in min) is for the factory prop, so a different prop’s limits come from the airplane’s equipment list and supplements.', c: ['poh:1-3', 'poh:2-5'] },
+      { t: 'POH static full-throttle RPM range (carb heat off, mixture leaned for max RPM): 2280–2380 RPM. With a non-factory prop, check its supplement or equipment list for any different value.', c: ['poh:2-4'] }
     ],
     refs: ['poh:Sec. 1', 'poh:Sec. 2', 'phak:ch. 7']
   },

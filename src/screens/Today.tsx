@@ -1,8 +1,9 @@
-import { IconClock, IconFlame, IconPlaneSmall, IconStack, IconInfo } from '../components/Icons';
+import { IconClock, IconFlame, IconStack, IconInfo } from '../components/Icons';
 import { Ring } from '../components/Ring';
 import { SAMPLE_PROFILE } from '../data/sample';
 import { PAVE, type Pave } from '../data/types';
 import { go } from '../lib/router';
+import { FlightCard } from './Fly';
 
 function greeting() {
   const h = new Date().getHours();
@@ -12,7 +13,6 @@ function greeting() {
   return 'Good evening';
 }
 
-const PHASES = ['Brief', 'Depart', 'En route', 'Arrive', 'Debrief'];
 
 export function Today() {
   const p = SAMPLE_PROFILE;
@@ -67,37 +67,7 @@ export function Today() {
       </section>
 
       <section>
-        <button class="card card-tap flight-card stack" onClick={() => go('fly')} aria-label={`Continue your flight from ${p.flight.from} to ${p.flight.to}`}>
-          <svg class="horizon-bg" viewBox="0 0 400 160" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="var(--accent)" stop-opacity="0.10" />
-                <stop offset="1" stop-color="var(--accent)" stop-opacity="0" />
-              </linearGradient>
-            </defs>
-            <path d="M0 0 H400 V96 L0 108 Z" fill="url(#sky)" />
-            <path d="M0 108 L400 96" stroke="var(--accent)" stroke-opacity="0.35" stroke-width="1.5" />
-            <path d="M180 128 L220 128 M190 140 L210 140" stroke="var(--text-2)" stroke-opacity="0.35" stroke-width="1.5" />
-          </svg>
-          <div class="row between">
-            <p class="label">Continue your flight</p>
-            <span class="muted" style={{ fontSize: 'var(--fs-xs)' }}>{p.flight.chapter}</span>
-          </div>
-          <div class="route">
-            <span>{p.flight.from}</span>
-            <div class="route-line">
-              <div class="done" style={{ width: p.flight.progress * 100 + '%' }} />
-              <IconPlaneSmall class="plane" style={{ left: p.flight.progress * 100 + '%' }} />
-            </div>
-            <span>{p.flight.to}</span>
-          </div>
-          <div class="phase-strip" aria-label={`Phase: ${PHASES[p.flight.phase]}`}>
-            {PHASES.map((ph, i) => (
-              <span key={ph} class={i < p.flight.phase ? 'on' : i === p.flight.phase ? 'now' : ''} />
-            ))}
-          </div>
-          <p>{p.flight.teaser}</p>
-        </button>
+        <FlightCard />
       </section>
 
       <section class="stack" aria-labelledby="ready-title">
