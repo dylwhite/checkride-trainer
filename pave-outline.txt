@@ -1,11 +1,11 @@
 # PAVE OUTLINE — my checkride study outline
 # Edit this file in the GitHub app, then tell Claude Code: "re-sync with my outline".
 # How it's organized (same as my original PDF):
-#   - A line in ALL CAPS (PILOT, AIRCRAFT, ENVIORNMENT, ...) starts a PAVE category.
+#   - A line in ALL CAPS (PILOT, AIRCRAFT, ENVIRONMENT, ...) starts a PAVE category.
 #   - A blank line starts a new topic. The first line after it is the topic name;
 #     the lines under it are that topic's details.
 #   - Lines starting with # are notes and are ignored.
-# Converted from pave-outline.pdf with my wording kept exactly as written.
+# Converted from pave-outline.pdf. Spelling/typos fixed; content unchanged.
 # Corrections and additions are shown in the app's Notes Check and Study Guide, not here.
 
 PAVE
@@ -26,7 +26,7 @@ Sim Inst. 3
 Night 3
 Total 35
 Takeoff & Landings 10 FS
-Endorsements (Solo, Pre-Check Ride)
+Endorsements (Solo, Pre-Checkride)
 Pass FAA Written Test
 Pass Checkride
 Oral
@@ -38,7 +38,7 @@ Medical Certificate
 3rd (Private, CFI, Student) 60 Months Before 40 Yrs, 24 Months After 40 Yrs
 
 Basic Med
-Need Valid US Drivers License
+Need Valid US Driver's License
 Held Medical After 07/14/06
 Pass CMEC
 Complete Online Course
@@ -50,7 +50,7 @@ VFR or IFR within US
 Below 18,000 MSL
 Less than 251 KTs
 No Comp or Hire
-Private, Flight Crew, Examiners Privliges
+Private, Flight Crew, Examiner Privileges
 
 Qualifications
 Private Pilot License
@@ -65,25 +65,25 @@ Charity, Non-Profit, Community Event
 Search & Rescue
 Aircraft Salesman (200 Hrs, Demonstrate to Buyer)
 Incidental for Business or Employment (Ex. Flying Yourself To Client, Pilot isn’t Primary Job)
-Glider Tower (100 Hrs PIC Cat. Class, Type, Proceeding 12 Months 3 Sim or Actual in Cat. Class, Type)
+Glider Towing (100 Hrs PIC Cat. Class, Type, Preceding 12 Months 3 Sim or Actual in Cat. Class, Type)
 
-Limitions
+Limitations
 No Less than Pro Rata Share
 Fuel, Oil, Rental Fees, Airport Expenditures
 
 Responsibilities
 Final Authority as to the operation of the Aircraft
 Safety of Plane and Passengers
-In Flight Emergency, Can Deviate to extent to Meet that Emergency
+In-Flight Emergency, Can Deviate to the Extent to Meet that Emergency
 Follow ATC Instructions
-Know and Understand FAA Rule & Regulations
+Know and Understand FAA Rules & Regulations
 Must Have Medical, Government Issued Photo ID, Pilot Certificate on Person
 
 Endorsements
 Complex (Need All 3, Flaps, Retractable Gear, Controllable Pitch Propeller)
 High Performance (Above 200 HP)
 High Altitude / Pressurized (Above 25,000 FT MSL)
-Tail Wheel
+Tailwheel
 
 Legality
 Flight Review (24 Calendar Months)
@@ -93,19 +93,19 @@ Up to Discretion of Authorized Instructor or Examiner for Maneuvers and Procedur
 Ground is For Rules & Regs
 New Rating or Wings Program is a substitute
 
-Currency (To Carry Passengers in Proceeding 90 Days, Day 3 T&L Night or Tailwheel 3 T&L to FS)
+Currency (To Carry Passengers in Preceding 90 Days, Day 3 T&L Night or Tailwheel 3 T&L to FS)
 Proficiency (Skill, Comfortable with these Model Planes, Glass Cockpit, Good Decision Making)
 
 IMSAFE
 Illness (AIM 8-1-2)
 Contact AME about Medications, or OTC Medications Reference Guide
-At-Least 5X Dosage Interval Before Flying
+At Least 5X Dosage Interval Before Flying
 Stress (Wait Until Head Is Clear To Make Good Decisions)
 Alcohol (0.04 BAC, 8 Hrs “Bottle to Throttle” Rec. 12 - 24 Hrs)
 Fatigue (Personal Min. Sleep)
 
 ADM
-Decide Model (Detect, Estimate, Choose, Identify, Do, Evaluate
+Decide Model (Detect, Estimate, Choose, Identify, Do, Evaluate)
 5 P’s (The Plan, The Plane, The Pilot, The Passengers, The Programming)
 Personal Minimums
 
@@ -131,7 +131,7 @@ Expires 7 Yrs
 Can Be Revoked
 Ownership Transfer
 Aircraft Destroyed
-Owner Loss of Status or Citzenship
+Owner Loss of Status or Citizenship
 
 Radio Operating License (Outside US)
 Operating Limitations, POH
@@ -139,7 +139,7 @@ Weight & Balance
 
 Inspections
 AD Compliance
-One Time or Reoccurring
+One Time or Recurring
 Emergency / Immediate or Specific Time Period
 
 ADs
@@ -216,9 +216,9 @@ Load Factor
 Turn Tendencies
 Adverse Yaw
 Spin Recovery
-Pre Flight Inspections
+Preflight Inspections
 
-ENVIORNMENT
+ENVIRONMENT
 
 Navigation
 Pilotage
@@ -264,10 +264,10 @@ Smoke, Haze
 Thunderstorms
 En-Route Weather Forecast
 Flight Categories
-AirMet, SigMet, Conv.Sig
-METARS
-TAFS
-PiReps
+AIRMET, SIGMET, Convective SIGMET
+METARs
+TAFs
+PIREPs
 Winds Aloft
 Airspace
 Airspace Floor & Ceiling
@@ -277,7 +277,7 @@ Sectional Chart
 Speed Limits
 Special VFR
 NOTAMs
-TFRS
+TFRs
 Special Use Airspaces
 
 EXTERNAL FACTORS
@@ -300,8 +300,8 @@ LAHSO
 Aero-Medical Factors
 Hypoxia Types and Solutions
 Hyperventilation and Solutions
-Spacial Disorientation and Solution
-Co Poisoning and Solution
+Spatial Disorientation and Solution
+CO Poisoning and Solution
 Decompression Sickness and Solutions
 Illusions
 Night Visual Illusions
