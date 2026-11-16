@@ -1,6 +1,7 @@
 import { TabBar } from './components/TabBar';
 import { useRoute } from './lib/router';
 import { Progress } from './screens/Progress';
+import { Checkride } from './screens/Checkride';
 import { Drills } from './screens/Drills';
 import { Fly } from './screens/Fly';
 import { NotesCheck, StudyGuide } from './screens/Notes';
@@ -11,12 +12,13 @@ import { Today } from './screens/Today';
 
 export function App() {
   const route = useRoute();
-  const fullScreen = route === 'question';
+  const fullScreen = route === 'question' || route === 'checkride';
   let screen;
   switch (route) {
     case 'question': screen = <Session />; break;
     case 'fly': screen = <Fly />; break;
     case 'oral': screen = <Oral />; break;
+    case 'checkride': screen = <Checkride />; break;
     case 'drills': screen = <Drills />; break;
     case 'progress': screen = <Progress />; break;
     case 'settings': screen = <Settings />; break;

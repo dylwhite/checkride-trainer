@@ -431,3 +431,4 @@ button.card:disabled { opacity: 0.6; }
 .stats span { font-size: var(--fs-xs); color: var(--text-2); }
 .acs-row { display: grid; gap: 6px; font-size: var(--fs-sm); }
 .acs-row .xp-track { height: 8px; }
+.section-intro { border-color: color-mix(in srgb, var(--pave-a) 40%, var(--border)); }
