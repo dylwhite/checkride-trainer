@@ -11,10 +11,10 @@ export const ITEMS: Item[] = [
     readout: { tag: 'Sample METAR · fictional', cat: 'IFR', text: 'KHIO 161753Z 20008KT 2SM BR BKN015 OVC025 09/08 A3002' },
     prompt: 'Can you take off and fly the pattern under basic VFR?',
     choices: [
-      { t: 'Yes. The ceiling is above 1,000 ft, so I’m legal in Class D.', why: 'The ceiling is only half the rule. Ground visibility must also be at least 3 SM.' },
       { t: 'No. Ground visibility must be at least 3 SM to take off under VFR in the Class D surface area.', ok: true },
-      { t: 'Yes. 1 SM and clear of clouds is enough below 1,200 ft AGL.', why: 'That is the daytime Class G minimum. KHIO is in Class D while the tower is open.' },
-      { t: 'Yes, as long as I climb above the clouds after takeoff.', why: 'You can’t legally take off under VFR in the surface area with less than 3 SM ground visibility.' }
+      { t: 'Yes. The ceiling is above 1,000 ft, and that’s what limits a takeoff in the surface area.', why: 'The ceiling is only half the rule. Ground visibility must also be at least 3 SM.' },
+      { t: 'Yes, if you stay clear of clouds and remain within the traffic pattern.', why: 'Clear of clouds in the pattern is a Class G provision. Class D needs 3 SM and a 1,000 ft ceiling.' },
+      { t: 'No, but only because the ceiling must be at least 3,000 ft in Class D.', why: 'The surface-area ceiling requirement is 1,000 ft. Visibility is the problem here.' }
     ],
     explain: [
       'With the tower open, Hillsboro is a **Class D surface area**.',
@@ -40,9 +40,9 @@ export const ITEMS: Item[] = [
     prompt: 'What’s the most likely cause, and what do you do first?',
     choices: [
       { t: 'Carburetor ice. Apply full carburetor heat.', ok: true },
-      { t: 'A fouled spark plug. Lean the mixture aggressively.', why: 'Plug fouling causes slight roughness, not a smooth, gradual RPM loss. A gradual RPM drop is the classic carb ice sign.' },
-      { t: 'A magneto problem. Switch to the left magneto.', why: 'Mag checks help with roughness, but a smooth, slow RPM decay points to carb ice first.' },
-      { t: 'Normal. Add throttle to get the RPM back.', why: 'Adding throttle hides the symptom while ice keeps building.' }
+      { t: 'Carburetor ice. Apply partial carb heat so you don’t lose too much power.', why: 'The POH says pull carb heat full out until the engine runs smoothly.' },
+      { t: 'Fuel starvation. Switch tanks and turn on the fuel pump.', why: 'The 152 is gravity fed with no tank selector or pump, and a smooth, slow RPM decay is the classic carb ice sign.' },
+      { t: 'Spark plug fouling. Lean the mixture to burn off the deposits.', why: 'Plug fouling usually shows as slight roughness first. A smooth, gradual RPM loss points to carb ice.' }
     ],
     explain: [
       'In a fixed-pitch prop airplane, the **first sign of carb ice is a drop in RPM**, which may be followed by roughness.',
@@ -68,9 +68,9 @@ export const ITEMS: Item[] = [
     prompt: 'What do you do?',
     choices: [
       { t: 'Pitch for 60 KIAS and land straight ahead or with small turns, choosing the best spot in front of you.', ok: true },
-      { t: 'Turn back to the runway immediately before you lose more altitude.', why: 'The “impossible turn” loses a lot of altitude. The AFH says to turn back only if you’re certain you can make it and have trained it in your airplane.' },
-      { t: 'Hold Vy (67 KIAS) to stretch the glide back toward the airport.', why: 'Your POH memory item is 60 KIAS for engine failure after takeoff.' },
-      { t: 'Troubleshoot first: carb heat, fuel, mags, then decide.', why: 'At this altitude there’s no time. Airspeed first, landing site second. The restart procedure is for failures with altitude to work with.' }
+      { t: 'Pitch for 60 KIAS and make a 180° turn back to the runway you just left.', why: 'The AFH: turn back only if you’re certain you can make it and have trained it in your airplane.' },
+      { t: 'Pitch for 67 KIAS (Vy) to keep as much altitude as possible, then pick a field.', why: 'Your POH memory item for engine failure after takeoff is 60 KIAS.' },
+      { t: 'Try a restart first: carb heat on, mixture rich, then pick a field if it doesn’t catch.', why: 'At low altitude there’s no time. Airspeed first, landing site second. The restart procedure is for failures with altitude to work with.' }
     ],
     explain: [
       'Memory item: **Airspeed 60 KIAS.** Then mixture idle cut-off, fuel shutoff valve off, ignition off, flaps as required, master off.',
@@ -94,9 +94,9 @@ export const ITEMS: Item[] = [
     prompt: 'What are your first actions?',
     choices: [
       { t: 'Master switch OFF, vents/cabin air/heat CLOSED, fire extinguisher ACTIVATE if available.', ok: true },
-      { t: 'Mixture idle cut-off and fuel shutoff valve OFF.', why: 'That’s the engine fire checklist. This is electrical: remove the power source first.' },
-      { t: 'Open all vents to clear the smoke, then find the bad circuit breaker.', why: 'The POH closes vents, cabin air, and heat right after the master switch.' },
-      { t: 'Reset any popped circuit breaker to restore the radios.', why: 'Your POH says check breakers but do not reset them.' }
+      { t: 'Master switch OFF, open the vents to clear the smoke, then use the extinguisher.', why: 'The POH closes vents, cabin air, and heat right after the master switch.' },
+      { t: 'Pull the circuit breakers one at a time until the smoke stops.', why: 'Master off first. Breakers are checked later, and not reset.' },
+      { t: 'Mixture idle cut-off and fuel shutoff valve OFF, then land.', why: 'That’s the engine fire checklist. For an electrical fire, remove the power source first.' }
     ],
     explain: [
       'Memory items: **Master Switch OFF, Vents/Cabin Air/Heat CLOSED, Fire Extinguisher ACTIVATE** (if available). Ventilate the cabin after using an extinguisher.',
@@ -120,10 +120,10 @@ export const ITEMS: Item[] = [
     setup: ['Level en route from KHIO to {dest}, the low-voltage light comes on and the ammeter shows a discharge. Engine RPM is normal.'],
     prompt: 'Per your POH, what’s the right sequence?',
     choices: [
-      { t: 'Radios off, alternator breaker check in, master off (both sides) then on, check light off, radios on. If it comes back: alternator off, nonessentials off, terminate the flight as soon as practical.', ok: true },
-      { t: 'Continue to the destination. The battery runs everything for the rest of the flight.', why: 'Your battery is now the only source. The POH says terminate the flight as soon as practical.' },
-      { t: 'Turn the master off and leave it off for the rest of the flight.', why: 'That’s not the POH sequence. First try to reset the alternator with a master cycle.' },
-      { t: 'Reduce RPM to idle to reduce the electrical load.', why: 'That isn’t in the POH procedure. You reduce electrical load by turning equipment off.' }
+      { t: 'Radios off, alternator breaker check in, master off (both sides) then on, check light off, radios on. If it returns: alternator off, nonessentials off, land as soon as practical.', ok: true },
+      { t: 'Radios off, alternator breaker check in, master off then on. If it returns, continue to your destination on battery power.', why: 'If it comes back, the POH says turn the alternator off, shed load, and terminate the flight as soon as practical.' },
+      { t: 'Alternator off, alternator breaker pull, nonessential equipment off, terminate the flight as soon as practical.', why: 'That’s the POH checklist for an excessive rate of charge, not a low-voltage light.' },
+      { t: 'Master off for the rest of the flight to save the battery, and navigate by pilotage.', why: 'First try to reset the alternator with the POH sequence.' }
     ],
     explain: [
       'The POH “Low-Voltage Light Illuminates During Flight” checklist: **Radios OFF → Alternator circuit breaker CHECK IN → Master OFF (both sides) → Master ON → Low-voltage light CHECK OFF → Radios ON.**',
@@ -141,10 +141,10 @@ export const ITEMS: Item[] = [
     setup: ['Returning to KHIO from {from}, with the tower open. Your radio has gone silent. You can’t hear anything and nobody answers your calls. The weather is good VFR.'],
     prompt: 'What’s the best plan?',
     choices: [
-      { t: 'Squawk 7600, stay outside or above the Class D until you see the traffic flow, join the pattern, and watch the tower for light signals.', ok: true },
-      { t: 'Squawk 7700 and land on the longest runway right away.', why: '7700 is for emergencies. Radio failure is 7600, and you still need to fit in with traffic.' },
-      { t: 'Enter the Class D and land. ATC will see you on radar.', why: 'You need two-way radio contact to enter Class D. Without it, follow the AIM radio-failure arrival procedure.' },
-      { t: 'Divert to a nontowered airport only. You can’t land at KHIO without a radio.', why: 'Diverting is an option, but the AIM has a procedure for landing at a towered airport with light signals.' }
+      { t: 'Squawk 7600, stay outside or above the Class D until you see the traffic flow, join the pattern, and watch for light signals.', ok: true },
+      { t: 'Squawk 7600, fly straight in to the active runway, and watch for a steady green.', why: 'The AIM says first determine the direction and flow of traffic from outside or above the Class D, then join the pattern.' },
+      { t: 'Squawk 7700, circle overhead at pattern altitude until the tower sends a light.', why: '7600 is for radio failure, and circling overhead in the pattern isn’t the AIM procedure.' },
+      { t: 'Squawk 7600 and divert to a nontowered airport; you can’t land at a towered field without a radio.', why: 'Diverting is an option, but the AIM has a procedure for landing at a towered airport with light signals.' }
     ],
     explain: [
       'Squawk **7600** for loss of two-way radio.',
@@ -198,10 +198,10 @@ export const ITEMS: Item[] = [
     setup: ['Two friends are counting on you to fly them to {event} on {when}. They’ve already told everyone you’re flying them. The forecast looks “probably fine.”'],
     prompt: 'What’s the best way to manage this, according to the FAA?',
     choices: [
-      { t: 'Set it up now with a release valve: plan to leave early, build in time for a weather stop, and agree on a backup way to get there.', ok: true },
-      { t: 'Commit to going so your friends aren’t disappointed, and decide in the air.', why: 'That’s the pressure talking. Decisions are easiest on the ground before anyone gets in the plane.' },
-      { t: 'Ignore it. External pressures only matter for commercial flights.', why: 'The PHAK calls managing external pressure the single most important key to risk management.' },
-      { t: 'Only go if you can promise an on-time arrival.', why: 'Promising a time is what creates the pressure.' }
+      { t: 'Set it up now with a release valve: leave early, build in time for a weather stop, and agree on a backup way to get there.', ok: true },
+      { t: 'Check the weather the night before and commit if it looks good, so your friends can plan.', why: 'Committing early is what creates the pressure. Build in alternatives instead.' },
+      { t: 'Plan to go, and turn back in the air if conditions get worse than forecast.', why: 'Decisions are easiest on the ground. Have the backup ready before you load up.' },
+      { t: 'Tell your friends you’ll decide the morning of, but promise to get them there on time either way.', why: 'Promising an arrival time recreates the pressure.' }
     ],
     explain: [
       'External pressures include **someone waiting for you, passengers you don’t want to disappoint, and get-there-itis**.',
@@ -218,9 +218,9 @@ export const ITEMS: Item[] = [
     prompt: 'What fuel must you have, at minimum, when you take off?',
     choices: [
       { t: 'Enough to reach KHIO, considering wind and forecast weather, plus 45 minutes at normal cruise.', ok: true },
-      { t: 'Enough to reach KHIO plus 30 minutes.', why: '30 minutes is the daytime minimum. At night it’s 45.' },
-      { t: 'Enough to reach KHIO plus 1 hour.', why: 'That’s a good personal minimum, but the regulation is 45 minutes at night.' },
-      { t: 'Full tanks are required for night flight.', why: 'No rule requires full tanks, but they’re often a smart choice in a 152.' }
+      { t: 'Enough to reach KHIO, considering wind and forecast weather, plus 30 minutes at normal cruise.', why: '30 minutes is the daytime minimum. At night it’s 45.' },
+      { t: 'Enough to reach KHIO plus 45 minutes, figured at no-wind cruise speed.', why: 'The rule requires considering wind and forecast weather.' },
+      { t: 'Enough to reach KHIO and then an alternate, plus 45 minutes.', why: 'An alternate isn’t required under VFR. It’s a good idea, but not the rule.' }
     ],
     explain: [
       'VFR fuel rule: enough to fly to the **first point of intended landing**, considering wind and forecast weather, and then **30 minutes (day) or 45 minutes (night)** at normal cruising speed.',
@@ -238,9 +238,9 @@ export const ITEMS: Item[] = [
     prompt: 'Per FAA guidance, can you fly at 3 pm?',
     choices: [
       { t: 'No. Wait at least five maximum dosing intervals, about 30 hours here.', ok: true },
-      { t: 'Yes. You feel fine, and that’s what IMSAFE checks.', why: 'Feeling fine isn’t the test. The FAA guidance is based on time since the last dose.' },
-      { t: 'Yes, as long as 8 hours have passed, like the alcohol rule.', why: '8 hours is the alcohol rule. Medications have their own guidance.' },
-      { t: 'Yes, if you take only half a dose next time.', why: 'The guidance is about time since the last dose, not dose size.' }
+      { t: 'Yes. 8 hours have passed, the same as the alcohol rule.', why: '8 hours is the alcohol rule. The PHAK’s medication guidance is five dosing intervals.' },
+      { t: 'Yes. The 6-hour dosing interval has passed twice since you took it.', why: 'Two intervals isn’t enough. The guidance is five.' },
+      { t: 'Only if you don’t feel drowsy before the flight.', why: 'Feeling fine isn’t the test. The guidance is based on time since the last dose.' }
     ],
     explain: ['The PHAK says to wait **at least five maximal dosing intervals** before flying after taking a medication with potentially adverse side effects, such as sedation or dizziness. With a 5 to 6 hour dosing interval, that means waiting **30 hours**.'],
     c: ['phak:17-18', 'cfr14:91.17(a)'], xp: 15
@@ -254,9 +254,9 @@ export const ITEMS: Item[] = [
     prompt: 'Can you take them after dark tonight?',
     choices: [
       { t: 'Not after 1 hour past sunset. First make 3 full-stop takeoffs and landings at night within 90 days.', ok: true },
-      { t: 'Yes. Last week’s day landings keep you current for night.', why: 'Night currency needs its own 3 full-stop landings in the night period.' },
-      { t: 'Yes, as long as you land before sunrise.', why: 'The rule covers carrying passengers from 1 hour after sunset to 1 hour before sunrise.' },
-      { t: 'No. You need a flight review first.', why: 'A flight review is a separate 24-month requirement, not night currency.' }
+      { t: 'Yes, until the end of evening civil twilight; after that you’d need 3 night landings.', why: 'The passenger-currency period is 1 hour after sunset to 1 hour before sunrise, not civil twilight.' },
+      { t: 'Yes, if you make 3 night touch-and-goes with your passenger aboard first.', why: 'The 3 night landings must be to a full stop, and done before you carry passengers.' },
+      { t: 'Yes. Your 5 day landings last week cover night currency for 90 days.', why: 'Night currency needs its own 3 full-stop landings in the night period.' }
     ],
     explain: ['To carry passengers **from 1 hour after sunset to 1 hour before sunrise**, you need **3 takeoffs and 3 landings to a full stop** in that period within the **preceding 90 days**, as sole manipulator, in the same category and class.'],
     think: 'Currency is legal. Proficiency is safe. After 97 days, a solo night pattern session is a good idea anyway.',
@@ -271,9 +271,9 @@ export const ITEMS: Item[] = [
     prompt: 'How do you avoid its wake?',
     choices: [
       { t: 'Stay at or above its final approach path, note where it touched down, and land beyond that point.', ok: true },
-      { t: 'Stay below its path and land short of its touchdown point.', why: 'Vortices sink. Being below the path puts you in them.' },
-      { t: 'Land exactly on its touchdown point.', why: 'That’s where vortices from the landing aircraft settle.' },
-      { t: 'Wake turbulence only matters behind airliners.', why: 'The AIM procedures apply behind any larger aircraft. A vortex’s induced roll can exceed the roll-control authority of the airplane that flies into it.' }
+      { t: 'Stay at or above its path and land just short of its touchdown point.', why: 'Land beyond its touchdown point; its vortices end where it touched down.' },
+      { t: 'Fly slightly below its path so you’re under the vortices, and land beyond its touchdown point.', why: 'Vortices sink, so below the path is where they are.' },
+      { t: 'Wait 2 minutes on final by slowing down, then land normally.', why: 'The AIM procedure is about flight path and touchdown point, not slowing on final.' }
     ],
     explain: ['AIM vortex avoidance, landing behind a larger aircraft on the same runway: **stay at or above its final approach flight path, note its touchdown point, and land beyond it.**'],
     c: ['aim:7-4-6'], xp: 15
@@ -287,9 +287,9 @@ export const ITEMS: Item[] = [
     prompt: 'What should you do?',
     choices: [
       { t: 'Fly the airplane: continue to pattern altitude, fly a normal pattern and landing, then close the door on the ground.', ok: true },
-      { t: 'Unbuckle and reach across to pull the door closed.', why: 'Never release your seat belt and harness to reach the door. Leave it alone.' },
-      { t: 'Chop the power and land straight ahead immediately.', why: 'The AFH says don’t rush to land. A cabin door that opens in flight seldom if ever compromises the airplane’s ability to fly.' },
-      { t: 'Slip toward the open door to force it shut.', why: 'A slip toward the door may open it wider. A slip away may push it closed, but flying comes first.' }
+      { t: 'Reduce power and land straight ahead on the remaining runway right away.', why: 'The AFH says don’t rush to land. A door rarely affects the airplane’s ability to fly.' },
+      { t: 'Level off at 500 ft, then slip toward the door to push it closed.', why: 'A slip toward the door may open it wider. Fly a normal pattern.' },
+      { t: 'Have the passenger unbuckle and pull it shut while you fly.', why: 'The AFH says don’t release seat belts to reach the door. Leave it alone.' }
     ],
     explain: [
       'The AFH: the danger isn’t the door, it’s **the pilot’s reaction**. **Concentrate on flying the airplane.**',
@@ -305,9 +305,9 @@ export const ITEMS: Item[] = [
     prompt: 'In KHIO’s data block, what does “208 L 66” tell you?',
     choices: [
       { t: 'Field elevation 208 ft; runway lights on sunset to sunrise; longest runway 6,600 ft.', ok: true },
-      { t: 'Pattern altitude 208 ft AGL; left traffic; runway 6,600 ft.', why: '208 is field elevation in feet MSL. “L” is lighting, not left traffic.' },
-      { t: 'Elevation 208 ft; L = lighting by pilot control; 66 = runway heading.', why: '66 is the longest runway length in hundreds of feet.' },
-      { t: 'Elevation 2,080 ft; L = Class D; 66 = CTAF.', why: 'Airport elevation is shown in feet, not hundreds.' }
+      { t: 'Field elevation 208 ft; pilot-controlled lighting; longest runway 6,600 ft.', why: 'A plain L is lighting in operation sunset to sunrise. Pilot control is a different symbol.' },
+      { t: 'Field elevation 208 ft; lighting sunset to sunrise; total runway length of all runways 6,600 ft.', why: 'The number is the longest runway in hundreds of feet.' },
+      { t: 'Pattern altitude 208 ft AGL; lighting sunset to sunrise; longest runway 6,600 ft.', why: 'The first number is field elevation in feet MSL.' }
     ],
     explain: [
       'Data block: **elevation in feet**, **L** = lighting in operation sunset to sunrise, **66** = length of the **longest runway in hundreds of feet** (6,600). KHIO’s Runway 13R-31L is 6,600 × 150 ft.',
@@ -321,9 +321,9 @@ export const ITEMS: Item[] = [
     prompt: 'The dashed blue circle around KHIO shows “27” in a box. What is it, and is it always active?',
     choices: [
       { t: 'Class D, surface up to and including 2,700 ft MSL. Part-time: see the NOTAMs/Supplement note for its hours.', ok: true },
-      { t: 'Class D up to 2,700 ft AGL, active 24 hours.', why: 'Ceilings are in hundreds of feet MSL, and the note says to check the Chart Supplement for hours.' },
-      { t: 'Class C up to 2,700 ft MSL.', why: 'Class C is solid magenta. Dashed blue is Class D.' },
-      { t: 'Class E surface area up to 2,700 ft.', why: 'Class E surface areas are dashed magenta.' }
+      { t: 'Class D, surface up to 2,700 ft AGL. Part-time: see the Supplement for its hours.', why: 'Class D ceilings are charted in MSL.' },
+      { t: 'Class D, surface up to but not including 2,700 ft MSL, active 24 hours.', why: 'A minus sign would mean “up to but not including,” and the note says it’s part-time.' },
+      { t: 'Class E surface area to 2,700 ft MSL while the tower is closed.', why: 'Dashed blue is Class D. Class E surface areas are dashed magenta.' }
     ],
     explain: [
       '**Dashed blue = Class D.** The boxed number is the **ceiling in hundreds of feet MSL**. A minus sign would mean “up to but not including.”',
@@ -339,9 +339,9 @@ export const ITEMS: Item[] = [
     prompt: 'Before you cross into that shelf at {alt}, what must you have?',
     choices: [
       { t: 'Two-way radio communication established with Portland Approach, plus an operating Mode C transponder and ADS-B Out.', ok: true },
-      { t: 'An explicit “cleared into the Class C” from ATC.', why: 'An explicit clearance is the Class B rule. Class C needs two-way radio communication.' },
-      { t: 'Nothing. The shelf starts at 4,000 ft.', why: '40 over 23 means ceiling 4,000 and floor 2,300 MSL. At {alt} you’re inside it.' },
-      { t: 'Just a call on the tower frequency 119.3.', why: '119.3 is Hillsboro Tower. Class C is Portland Approach (the box says 118.1 within 20 NM here).' }
+      { t: 'An explicit “cleared into the Class C” from Portland Approach, plus Mode C and ADS-B Out.', why: 'An explicit clearance is the Class B rule. Class C needs two-way radio communication.' },
+      { t: 'Two-way radio communication with Hillsboro Tower, plus Mode C and ADS-B Out.', why: 'Hillsboro Tower handles its own Class D. The Class C belongs to Portland Approach.' },
+      { t: 'Nothing yet: at {alt} you’re still below the shelf’s 4,000 ft floor.', why: '40 over 23 means ceiling 4,000 and floor 2,300 MSL, so at {alt} you’re inside it.' }
     ],
     explain: [
       'Class C sector altitudes are in **hundreds of feet MSL**: **40/23 = 4,000 ceiling, 2,300 floor.**',
@@ -355,9 +355,9 @@ export const ITEMS: Item[] = [
     prompt: 'What does the large blue “3⁹” tell you about this area?',
     choices: [
       { t: 'The highest terrain or obstacle in this quadrant is at or below 3,900 ft MSL (rounded up).', ok: true },
-      { t: 'The minimum safe altitude here is 3,900 ft AGL.', why: 'MEF is an elevation in MSL, not a minimum altitude or an AGL value.' },
-      { t: 'The highest terrain is exactly 390 ft.', why: 'The small digit is hundreds: 3⁹ = 3,900.' },
-      { t: 'The MOA in this area tops out at 3,900 ft.', why: 'MEF has nothing to do with special use airspace.' }
+      { t: 'The highest terrain in this quadrant, not counting towers or trees, is 3,900 ft MSL.', why: 'MEF includes obstacles such as towers and trees.' },
+      { t: 'The minimum safe altitude in this quadrant is 3,900 ft MSL.', why: 'MEF is an elevation figure, not a minimum altitude.' },
+      { t: 'The highest terrain or obstacle is 3,900 ft above ground level.', why: 'MEF is in feet MSL.' }
     ],
     explain: ['The **Maximum Elevation Figure** is the highest elevation in the quadrant (30 minutes of latitude by 30 minutes of longitude), **including terrain and obstacles like towers and trees**, rounded up. The last two digits aren’t shown.'],
     think: 'At night or in reduced visibility west of KHIO, the MEF is a quick way to see how high you need to be for terrain.',
