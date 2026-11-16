@@ -1,6 +1,7 @@
 // Quick-recall fact tables. Each row becomes one question: multiple choice in sessions
 // (wrong options come from other rows of the same table) and a flashcard in Drills.
 // Every row was checked against the cited source text.
+import { DISTRACTORS } from './distractors';
 import type { Item, Pave } from './types';
 
 interface Row {
@@ -531,11 +532,24 @@ T.push({
   ]
 });
 
+const unit = (x: string) => (x.match(/(KIAS|knots|kt|lb|ft|°|RPM|psi|gal|fpm|SM|hours?|minutes?|days?|months?|G|%)/i) ?? [''])[0].toLowerCase();
+const isRange = (x: string) => /\d\s*[–-]\s*\d/.test(x);
+function likeness(a: string, b: string) {
+  return Math.abs(a.length - b.length) / 4 + (unit(a) === unit(b) ? 0 : 20) + (isRange(a) === isRange(b) ? 0 : 15) + (/\d/.test(a) === /\d/.test(b) ? 0 : 25);
+}
+
 const shuffle = <V,>(a: V[]) => a.map((v) => [Math.random(), v] as const).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
 
 function toItem(t: Table, r: Row, i: number): Item {
-  const pool = [...new Set([...(r.x ?? []), ...t.rows.filter((o) => o !== r).map((o) => o.a)])].filter((s) => s !== r.a);
-  const wrong = shuffle(pool).slice(0, 3);
+  const hand = DISTRACTORS[r.q];
+  const extra = shuffle((r.x ?? []).filter((x) => x !== r.a));
+  // Siblings that look like the right answer: same unit, range-vs-single, similar length.
+  const siblings = [...new Set(t.rows.filter((o) => o !== r).map((o) => o.a))]
+    .filter((x) => x !== r.a && !extra.includes(x))
+    .map((x) => [x, likeness(r.a, x) + Math.random() * 6] as const)
+    .sort((p, q) => p[1] - q[1])
+    .map((p) => p[0]);
+  const wrong = hand ? shuffle(hand).slice(0, 3) : [...extra, ...siblings].slice(0, 3);
   return {
     id: `f-${t.id}-${i}`,
     kind: 'recall',
