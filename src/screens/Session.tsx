@@ -5,6 +5,7 @@ import { IconCheck, IconClose, IconHalf, IconX } from '../components/Icons';
 import { Cites, ResultSheet, type Verdict } from '../components/ResultSheet';
 import { Rich } from '../components/Rich';
 import { PAVE } from '../data/types';
+import { getLog, replay } from '../lib/progress';
 import { go, query } from '../lib/router';
 import { buildSession, DRILL_LABEL, drillFilter, fill, logAnswer, type SessionStep } from '../lib/session';
 
@@ -43,7 +44,8 @@ export function Session() {
   useEffect(() => {
     (async () => {
       const filter = drill ? await drillFilter(drill) : () => true;
-      setSteps(buildSession(timed ? 40 : 6, filter));
+      const topics = replay(await getLog());
+      setSteps(buildSession(timed ? 40 : 6, filter, drill === 'weak' ? undefined : topics));
     })();
   }, []);
 
@@ -58,7 +60,7 @@ export function Session() {
   const done = i >= steps.length;
 
   function finish(v: Verdict, xp: number) {
-    logAnswer(steps![i].item.id, v);
+    logAnswer(steps![i].item.id, v, { topic: steps![i].item.topic, xp });
     setEarned((x) => x + xp);
     setTally((t) => ({ ...t, [v]: t[v] + 1 }));
   }
@@ -67,7 +69,7 @@ export function Session() {
     else setI(i + 1);
     window.scrollTo(0, 0);
   }
-  const title = drill ? DRILL_LABEL[drill] ?? 'Drill' : 'Mission';
+  const title = drill ? DRILL_LABEL[drill] ?? (drill.startsWith('topic:') ? 'Topic practice' : 'Drill') : 'Mission';
   const mm = `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
 
   return (

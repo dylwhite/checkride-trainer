@@ -1,6 +1,6 @@
-import { IconClock, IconFlame, IconStack, IconInfo } from '../components/Icons';
+import { IconClock, IconFlame, IconStack } from '../components/Icons';
 import { Ring } from '../components/Ring';
-import { SAMPLE_PROFILE } from '../data/sample';
+import { levelFor, useProgress } from '../lib/useProgress';
 import { PAVE, type Pave } from '../data/types';
 import { go } from '../lib/router';
 import { FlightCard } from './Fly';
@@ -15,13 +15,16 @@ function greeting() {
 
 
 export function Today() {
-  const p = SAMPLE_PROFILE;
-  const pct = Math.round(((p.xp - p.levelFloor) / (p.levelCeil - p.levelFloor)) * 100);
+  const r = useProgress();
+  if (!r) return <main class="screen" />;
+  const lv = levelFor(r.xp);
+  const p = { streak: r.streak, xp: r.xp, level: lv.name, nextLevel: lv.next, levelCeil: lv.ceil, readiness: r.pave };
+  const pct = lv.next ? Math.round(((r.xp - lv.floor) / (lv.ceil - lv.floor)) * 100) : 100;
   return (
     <main class="screen stack-lg">
       <header class="today-head stack">
         <div class="row between">
-          <span class="preview-banner"><IconInfo width={14} height={14} /> Progress numbers are samples until Phase 4</span>
+          <span class="muted" style={{ fontSize: 'var(--fs-sm)' }}>{r.dueCount > 0 ? `${r.dueCount} topic${r.dueCount > 1 ? 's' : ''} due for review` : r.nextDue ? `Next review ${r.nextDue}` : r.answered ? 'All caught up' : 'Welcome aboard'}</span>
           <span class="streak" aria-label={`${p.streak} day streak`}>
             <IconFlame />
             {p.streak}
@@ -38,7 +41,7 @@ export function Today() {
           <div class="xp-track" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={`Progress to ${p.nextLevel}`}>
             <div class="xp-fill" style={{ width: pct + '%' }} />
           </div>
-          <span class="muted" style={{ fontSize: 'var(--fs-xs)' }}>{(p.levelCeil - p.xp).toLocaleString()} XP to {p.nextLevel}</span>
+          <span class="muted" style={{ fontSize: 'var(--fs-xs)' }}>{p.nextLevel ? `${(p.levelCeil - p.xp).toLocaleString()} XP to ${p.nextLevel}` : 'Top level reached. Keep your edge sharp.'}</span>
         </div>
       </header>
 
