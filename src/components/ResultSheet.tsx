@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'preact/hooks';
-import type { Citation } from '../data/sample';
+import { cite } from '../data/sources';
 import { IconCheck, IconExternal, IconHalf, IconX } from './Icons';
 import { Rich } from './Rich';
 
@@ -17,7 +17,7 @@ interface Props {
   subtitle?: string;
   explanation: string[];
   think?: string;
-  citations: Citation[];
+  citations: string[];
   furtherReading?: { label: string; url: string }[];
   nextLabel: string;
   onNext: () => void;
@@ -56,13 +56,7 @@ export function ResultSheet(p: Props) {
           <div>
             <p class="label" style={{ marginBottom: 'var(--s2)' }}>Source</p>
             <div class="chips">
-              {p.citations.map((c) =>
-                c.url ? (
-                  <a key={c.label} class="chip chip-cite" href={c.url} target="_blank" rel="noopener">{c.label}</a>
-                ) : (
-                  <span key={c.label} class="chip chip-cite">{c.label}</span>
-                )
-              )}
+              <Cites keys={p.citations} />
             </div>
           </div>
 
@@ -81,6 +75,22 @@ export function ResultSheet(p: Props) {
           <button class="btn btn-primary btn-block" onClick={p.onNext}>{p.nextLabel}</button>
         </div>
       </div>
+    </>
+  );
+}
+
+export function Cites({ keys }: { keys: string[] }) {
+  return (
+    <>
+      {keys.map((k) => {
+        const c = cite(k);
+        const title = `${c.doc.title} (${c.doc.edition})`;
+        return c.url ? (
+          <a key={k} class="chip chip-cite" href={c.url} target="_blank" rel="noopener" title={title}>{c.label}</a>
+        ) : (
+          <span key={k} class="chip chip-cite" title={title}>{c.label}</span>
+        );
+      })}
     </>
   );
 }

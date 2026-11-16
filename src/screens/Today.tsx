@@ -1,6 +1,7 @@
 import { IconClock, IconFlame, IconPlaneSmall, IconStack, IconInfo } from '../components/Icons';
 import { Ring } from '../components/Ring';
-import { PAVE, SAMPLE_PROFILE, type Pave } from '../data/sample';
+import { SAMPLE_PROFILE } from '../data/sample';
+import { PAVE, type Pave } from '../data/types';
 import { go } from '../lib/router';
 
 function greeting() {
@@ -20,7 +21,7 @@ export function Today() {
     <main class="screen stack-lg">
       <header class="today-head stack">
         <div class="row between">
-          <span class="preview-banner"><IconInfo width={14} height={14} /> Design preview · sample data</span>
+          <span class="preview-banner"><IconInfo width={14} height={14} /> Progress numbers are samples until Phase 4</span>
           <span class="streak" aria-label={`${p.streak} day streak`}>
             <IconFlame />
             {p.streak}
@@ -49,14 +50,14 @@ export function Today() {
           <path d="M72 55 h12 l6 6 l6 -6 h12" stroke="var(--partial)" stroke-width="2.5" fill="none" stroke-linecap="round" />
         </svg>
         <p class="label" style={{ color: 'var(--accent)' }}>Today’s Mission</p>
-        <h2 id="mission-title" class="h2">Low clouds over the valley</h2>
-        <p class="muted">Marine layer’s in. Make the go/no-go calls a DPE would ask about.</p>
+        <h2 id="mission-title" class="h2">Mixed checkride prep</h2>
+        <p class="muted">Scenarios around KHIO, the quick-recall facts behind them, a chart question or an emergency. Different every time.</p>
         <div class="mission-meta">
           <span><IconClock /> ~5 min</span>
-          <span><IconStack /> 8 questions</span>
+          <span><IconStack /> about 8 questions</span>
         </div>
         <div class="chips" aria-label="Topics">
-          {(['V', 'P', 'A'] as Pave[]).map((k) => (
+          {(['P', 'A', 'V', 'E'] as Pave[]).map((k) => (
             <span key={k} class="chip chip-pave" style={{ '--c': PAVE[k].color }}>
               <span class="dot" />{PAVE[k].short}
             </span>

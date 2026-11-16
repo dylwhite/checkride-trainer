@@ -1,0 +1,313 @@
+# PAVE OUTLINE — my checkride study outline
+# Edit this file in the GitHub app, then tell Claude Code: "re-sync with my outline".
+# How it's organized (same as my original PDF):
+#   - A line in ALL CAPS (PILOT, AIRCRAFT, ENVIRONMENT, ...) starts a PAVE category.
+#   - A blank line starts a new topic. The first line after it is the topic name;
+#     the lines under it are that topic's details.
+#   - Lines starting with # are notes and are ignored.
+# Converted from pave-outline.pdf. Spelling/typos fixed; content unchanged.
+# Corrections and additions are shown in the app's Notes Check and Study Guide, not here.
+
+PAVE
+
+PILOT
+
+Certification Requirements
+Minimum Age (17 Yrs)
+English Proficiency (Read, Speak, Write, Understand)
+Training Received from Authorized Instructor
+Proper Ground & Flight Training
+Part 141 Hour Minimums
+Ground 35
+Dual 20
+XC 3
+Solo 5
+Sim Inst. 3
+Night 3
+Total 35
+Takeoff & Landings 10 FS
+Endorsements (Solo, Pre-Checkride)
+Pass FAA Written Test
+Pass Checkride
+Oral
+Practical
+
+Medical Certificate
+1st (ATP) 12 Months Before 40 Yrs, 6 Months After 40 Yrs
+2nd (Commercial) 12 Months Before 40 Yrs, 12 Months After 40 Yrs
+3rd (Private, CFI, Student) 60 Months Before 40 Yrs, 24 Months After 40 Yrs
+
+Basic Med
+Need Valid US Driver's License
+Held Medical After 07/14/06
+Pass CMEC
+Complete Online Course
+Keep Both in Logbook
+No More than 7 Occupants
+Maximum Takeoff Weight No More Than 12,500
+No More than 6 Passengers
+VFR or IFR within US
+Below 18,000 MSL
+Less than 251 KTs
+No Comp or Hire
+Private, Flight Crew, Examiner Privileges
+
+Qualifications
+Private Pilot License
+Airplane
+Single Engine Land
+
+Privileges
+Act as PIC (Pilot In Command)
+Carry Passengers
+Fly at Night
+Charity, Non-Profit, Community Event
+Search & Rescue
+Aircraft Salesman (200 Hrs, Demonstrate to Buyer)
+Incidental for Business or Employment (Ex. Flying Yourself To Client, Pilot isn’t Primary Job)
+Glider Towing (100 Hrs PIC Cat. Class, Type, Preceding 12 Months 3 Sim or Actual in Cat. Class, Type)
+
+Limitations
+No Less than Pro Rata Share
+Fuel, Oil, Rental Fees, Airport Expenditures
+
+Responsibilities
+Final Authority as to the operation of the Aircraft
+Safety of Plane and Passengers
+In-Flight Emergency, Can Deviate to the Extent to Meet that Emergency
+Follow ATC Instructions
+Know and Understand FAA Rules & Regulations
+Must Have Medical, Government Issued Photo ID, Pilot Certificate on Person
+
+Endorsements
+Complex (Need All 3, Flaps, Retractable Gear, Controllable Pitch Propeller)
+High Performance (Above 200 HP)
+High Altitude / Pressurized (Above 25,000 FT MSL)
+Tailwheel
+
+Legality
+Flight Review (24 Calendar Months)
+Min 1 Hr Ground & Flight
+No Fail But Needs to be Satisfactory
+Up to Discretion of Authorized Instructor or Examiner for Maneuvers and Procedures
+Ground is For Rules & Regs
+New Rating or Wings Program is a substitute
+
+Currency (To Carry Passengers in Preceding 90 Days, Day 3 T&L Night or Tailwheel 3 T&L to FS)
+Proficiency (Skill, Comfortable with these Model Planes, Glass Cockpit, Good Decision Making)
+
+IMSAFE
+Illness (AIM 8-1-2)
+Contact AME about Medications, or OTC Medications Reference Guide
+At Least 5X Dosage Interval Before Flying
+Stress (Wait Until Head Is Clear To Make Good Decisions)
+Alcohol (0.04 BAC, 8 Hrs “Bottle to Throttle” Rec. 12 - 24 Hrs)
+Fatigue (Personal Min. Sleep)
+
+ADM
+Decide Model (Detect, Estimate, Choose, Identify, Do, Evaluate)
+5 P’s (The Plan, The Plane, The Pilot, The Passengers, The Programming)
+Personal Minimums
+
+AIRCRAFT
+Type & Engine
+Cessna 152, Lycoming O-235-N2C
+Normally Aspirated, Direct-Drive, Air-Cooled, Horizontally Opposed, Carbureted, Four Cylinder, 235 Cu In Displacement, 108 HP
+
+Documents
+Supplements (Garmin Manual)
+Placards (Mag Deviation Card, INOP Equipment)
+
+Airworthiness Certificate
+NO Expiration
+Can Be Revoked
+Not Maintained In Airworthy Condition
+No Longer Meets its Type Design (Major Alterations)
+Out of AD Compliance
+Major Damage
+
+Registration
+Expires 7 Yrs
+Can Be Revoked
+Ownership Transfer
+Aircraft Destroyed
+Owner Loss of Status or Citizenship
+
+Radio Operating License (Outside US)
+Operating Limitations, POH
+Weight & Balance
+
+Inspections
+AD Compliance
+One Time or Recurring
+Emergency / Immediate or Specific Time Period
+
+ADs
+Annual Inspection (12 Calendar Months)
+VOR Inspection (30 Days, IFR)
+100 HR Inspection (For Hire)
+Altimeter / Static System Inspection (24 Calendar Months, IFR)
+Transponder Inspection (24 Calendar Months)
+ELT Inspection (12 Calendar Months)
+
+Special Flight Permits, FSDO (Flight Service District Office)
+Maintenance Logs (Check For)
+Annual Inspection
+100 Hr Inspection
+Propeller & Engine
+ADs
+ELT
+Compare Actual Time
+Look For Dates
+
+Preventative Maintenance
+Allows You To Perform Maintenance That Doesn’t involve Complex Assembly (Basic & Limited)
+Light Bulbs
+Tires
+Reflectors
+Fluids
+
+INOP Procedure
+Find Inoperative Equipment
+Check
+Equipment List (MEL, Most GA Airplanes Don’t Have)
+Type Certificate Data Sheet (TCDS)
+Kinds of Operations Equipment List (KOEL, Don’t HAVE)
+Supplemental Type Certificate (STC, Optional Installed Equipment)
+AD Compliance
+ATOMATOFLAMES (91.205)
+Do You Feel Comfortable?
+IF IT’S A GO:
+Deactivate or Remove, Placard INOP, LOG IT.
+
+Aircraft Performance
+V Speeds
+Takeoff & Landing Distances
+Weight & Balance
+CG
+Aft CG vs Forward CG
+Flight Controls
+Fuel System
+Fuel Rating
+Carburetor
+Electric System
+Battery
+Alternator
+Magnetos
+Carb Heat
+Pitot Static System
+Pitot Tube
+ASI
+Static Port
+Altimeter
+VSI
+Airspeed Indicator Markings
+Hydraulic System
+Understand Aerodynamics?
+4 Forces of Flight
+AOA
+Lift Generation
+Induced Drag
+Parasite Drag
+Wingtip Vortices
+Downwash
+Stability vs Controllability
+Load Factor
+Turn Tendencies
+Adverse Yaw
+Spin Recovery
+Preflight Inspections
+
+ENVIRONMENT
+
+Navigation
+Pilotage
+Deduced Reckoning
+VOR
+Navigation Definition
+Course, Track, Heading
+NAV LOG
+Elements of a Flight Plan
+Aircraft Info
+Pilot Info
+Route
+ETE
+Fuel Required
+Souls on Board
+Types of Airspeed
+Cruising Altitude and Mag Course
+Departure Airport
+Arrival Airport
+Alternates
+Lost Procedures 5 C’s
+Lost Comms Procedures, Light Gun
+Runway Lengths
+Runway
+Traffic Pattern Altitudes and Directions
+Frequencies
+Flight Following
+General Weather Forecast
+Surface Analysis Charts
+Prog Charts
+High Pressure
+Low Pressure
+Stability
+Wind Direction
+Fronts
+Clouds
+Precipitation
+Turbulence
+Icing
+Fog
+Visibility
+Smoke, Haze
+Thunderstorms
+En-Route Weather Forecast
+Flight Categories
+AIRMET, SIGMET, Convective SIGMET
+METARs
+TAFs
+PIREPs
+Winds Aloft
+Airspace
+Airspace Floor & Ceiling
+VFR Weather Minimums
+Equipment List Requirements
+Sectional Chart
+Speed Limits
+Special VFR
+NOTAMs
+TFRs
+Special Use Airspaces
+
+EXTERNAL FACTORS
+
+Aircraft Performance
+Pressure Altitude
+Density Altitude
+Types of Altitude
+Airport Operations
+Signage
+Markings
+Lighting
+Hot Spots
+Runway Incursions
+TPA
+Diagram
+Chart Supplement
+Right-Of-Way
+LAHSO
+Aero-Medical Factors
+Hypoxia Types and Solutions
+Hyperventilation and Solutions
+Spatial Disorientation and Solution
+CO Poisoning and Solution
+Decompression Sickness and Solutions
+Illusions
+Night Visual Illusions
+FAA Rules and Regulations
+Minimum Safe Alts.
+Night Definitions
+Seatbelts
+Oxygen
+NTSB Reporting
