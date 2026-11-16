@@ -2,6 +2,7 @@
 // and decision points drawn from the verified item bank. Airport data is from the Chart Supplement
 // NW (29 Oct–24 Dec 2026). Weather is fictional but follows AIM 7-1-7 flight categories.
 import type { Choice, Item, Pave } from './types';
+import { MINIMUMS } from './minimums';
 import { compute, type Load } from './wb';
 
 export interface Dest {
@@ -20,7 +21,7 @@ export const DESTS: Dest[] = [
 export type Season = 'summer' | 'fall' | 'winter' | 'spring';
 export type Cat = 'VFR' | 'MVFR' | 'IFR' | 'LIFR';
 
-export interface Wx { ceil: number | null; vis: number; text: string; cat: Cat; note?: string }
+export interface Wx { ceil: number | null; vis: number; text: string; cat: Cat; note?: string; dir: number; spd: number; gust: number | null }
 
 // AIM 7-1-7 categorical conditions.
 export function category(ceil: number | null, vis: number): Cat {
@@ -69,10 +70,26 @@ function genWx(r: Rng, id: string, season: Season, east: boolean, good: boolean)
     sky = ceil ? `BKN${pad(ceil / 100)}` : pick(r, ['SCT050', 'FEW040']);
   }
   const d = Math.max(t - (wx === 'BR' ? 1 : between(r, 3, 12)), -10);
-  const dir = pad(between(r, 0, 35) * 10), spd = between(r, 3, 12);
+  const dirN = between(r, 1, 36) * 10;
+  const dir = pad(dirN);
+  const gusty = bad && (season === 'spring' || season === 'winter') ? true : r() < 0.15;
+  const spd = gusty ? between(r, 10, 18) : between(r, 3, 12);
+  const gust = gusty ? spd + between(r, 6, 10) : null;
   const temp = (n: number) => (n < 0 ? 'M' + pad(-n, 2) : pad(n, 2));
-  const text = `${id} 1${between(r, 5, 9)}1753Z ${dir}${pad(spd, 2)}KT ${vis}SM ${wx ? wx + ' ' : ''}${sky} ${temp(t)}/${temp(d)} A30${pad(between(r, 0, 25), 2)}`;
-  return { ceil, vis, text, cat: category(ceil, vis), note };
+  const text = `${id} 1${between(r, 5, 9)}1753Z ${dir}${pad(spd, 2)}${gust ? 'G' + gust : ''}KT ${vis}SM ${wx ? wx + ' ' : ''}${sky} ${temp(t)}/${temp(d)} A30${pad(between(r, 0, 25), 2)}`;
+  return { ceil, vis, text, cat: category(ceil, vis), note, dir: dirN, spd, gust };
+}
+
+// Crosswind component on the better-aligned runway end (gust used if reported).
+export function crosswind(dest: Dest, w: Wx) {
+  const ends = dest.rwy.split('-').map((e) => parseInt(e, 10) * 10);
+  const wind = w.gust ?? w.spd;
+  let best = { rwy: dest.rwy.split('-')[0], angle: 180 };
+  dest.rwy.split('-').forEach((e, i) => {
+    let a = Math.abs(((w.dir - ends[i] + 540) % 360) - 180);
+    if (a < best.angle) best = { rwy: e, angle: a };
+  });
+  return { rwy: best.rwy, angle: best.angle, kt: Math.round(wind * Math.sin((best.angle * Math.PI) / 180)) };
 }
 
 export interface Leg { id: string; title: string; phase: number; item: Item; vars?: Record<string, string> }
@@ -106,7 +123,7 @@ export function buildStory(seed: number, bankById: (id: string) => Item | undefi
   const depWx = genWx(r, 'KHIO', season, false, good || r() < 0.5);
   const destWx = genWx(r, dest.id, season, dest.east, good);
   const icing = season === 'winter' && dest.east && !good;
-  const pilotIssue = r() < 0.2 ? pick(r, ['meds', 'drinks', 'sleep']) : null;
+  const pilotIssue = r() < 0.22 ? pick(r, ['meds', 'drinks', 'sleep', 'food']) : null;
   const annualOk = r() > 0.12;
   const navLightOut = tod === 'evening' && r() < 0.3;
   const load: Load = { pilot: between(r, 150, 210, 5), pax: between(r, 120, 220, 5), gal: pick(r, [24.5, 20, 18]), a1: between(r, 0, 40, 5), a2: 0 };
@@ -117,7 +134,10 @@ export function buildStory(seed: number, bankById: (id: string) => Item | undefi
   if (!annualOk) noGo.push('The annual inspection had expired.');
   if (navLightOut) noGo.push('A position light was out and you’d arrive after sunset.');
   if (!wb.ok) noGo.push(`Weight and balance: ${wb.problems[0]}.`);
-  if (depWx.cat !== 'VFR' || destWx.cat !== 'VFR') noGo.push('Weather was below VFR or your personal minimums (3,000 ft / 5 SM).');
+  const meetsMins = (w: Wx) => (w.ceil === null || w.ceil >= MINIMUMS.ceiling) && w.vis >= MINIMUMS.visibility;
+  if (!meetsMins(depWx) || !meetsMins(destWx)) noGo.push(`Weather was below your personal minimums (${MINIMUMS.ceiling.toLocaleString()} ft / ${MINIMUMS.visibility} SM).`);
+  const xw = crosswind(dest, destWx);
+  if (xw.kt > MINIMUMS.crosswind) noGo.push(`Crosswind at ${dest.name} (${xw.kt} kt on Runway ${xw.rwy}) was over your ${MINIMUMS.crosswind} kt personal maximum.`);
   if (icing) noGo.push('Icing in clouds over the Cascades: the 152 is prohibited from known icing.');
 
   const ED = `${SEASON_LABEL[season]}, ${tod}`;
@@ -127,7 +147,8 @@ export function buildStory(seed: number, bankById: (id: string) => Item | undefi
   const pText: Record<string, string> = {
     meds: 'You took a drowsy-type antihistamine (6-hour dosing) 3 hours ago.',
     drinks: 'You had two glasses of wine that ended 6 hours ago.',
-    sleep: 'You got about 4 hours of sleep after a late shift and feel foggy.'
+    sleep: `You got about 5 hours of sleep after a late shift. Your personal minimum is ${MINIMUMS.sleepHours} hours.`,
+    food: `You skipped breakfast and lunch; your last meal was 12 hours ago. Your personal minimum is food within ${MINIMUMS.foodHours} hours.`
   };
   briefing.push({
     id: 'p', title: 'Pilot', phase: 0,
@@ -135,9 +156,9 @@ export function buildStory(seed: number, bankById: (id: string) => Item | undefi
       [`${ED}. You and a passenger plan KHIO to ${dest.name} (${dest.id}). Run IMSAFE on yourself.`, pilotIssue ? pText[pilotIssue] : 'You slept well, feel healthy, haven’t had alcohol or medication, and you’re current.'],
       'Are you fit to fly?',
       pilotIssue
-        ? [{ t: 'No. I’m not fit today.', ok: true }, { t: 'Yes. I feel okay.', why: pilotIssue === 'drinks' ? 'Less than 8 hours since drinking makes it illegal, and the AIM recommends 12 to 24 hours.' : pilotIssue === 'meds' ? 'The PHAK says wait five dosing intervals: about 30 hours here.' : 'Fatigue is the F in IMSAFE. Set a personal minimum for sleep.' }]
+        ? [{ t: 'No. I’m not fit today.', ok: true }, { t: 'Yes. I feel okay.', why: pilotIssue === 'drinks' ? 'Less than 8 hours since drinking makes it illegal, and the AIM recommends 12 to 24 hours.' : pilotIssue === 'meds' ? 'The PHAK says wait five dosing intervals: about 30 hours here.' : 'You set personal minimums so you don’t have to argue with yourself on the day. This is below one of them.' }]
         : [{ t: 'Yes. IMSAFE checks out.', ok: true }, { t: 'No.', why: 'Nothing on the IMSAFE checklist is a problem today.' }],
-      ['IMSAFE: Illness, Medication, Stress, Alcohol, Fatigue, Emotion.', pilotIssue === 'drinks' ? 'No acting as crew within **8 hours** of alcohol; the AIM recommends **12–24 hours**.' : pilotIssue === 'meds' ? 'Wait **five maximal dosing intervals** after a medication with sedating side effects.' : 'Be honest with yourself: “fine” isn’t the same as fit.'],
+      ['IMSAFE: Illness, Medication, Stress, Alcohol, Fatigue, Emotion.', pilotIssue === 'drinks' ? 'No acting as crew within **8 hours** of alcohol; the AIM recommends **12–24 hours**.' : pilotIssue === 'meds' ? 'Wait **five maximal dosing intervals** after a medication with sedating side effects.' : `Your personal minimums: ${MINIMUMS.sleepHours} hours of sleep and food within ${MINIMUMS.foodHours} hours. Fatigue and poor nutrition both affect judgment.`],
       ['phak:2-8', 'phak:17-18', 'cfr14:91.17(a)', 'aim:8-1-1'])
   });
 
@@ -172,13 +193,26 @@ export function buildStory(seed: number, bankById: (id: string) => Item | undefi
     id: 'v1', title: 'enVironment: weather', phase: 0,
     item: {
       ...mk('st-wx', 'V', 'v-wx-enroute', ['PA.I.C.K2', 'PA.I.C.R1b'],
-        ['Your briefing (fictional reports). Personal minimums: 3,000 ft ceiling, 5 SM.', destWx.note ? `Note: ${destWx.note}.` : 'No significant weather noted.', icing ? 'AIRMET Zulu: moderate icing in clouds over the Cascades; freezing level near the surface east of the crest.' : ''].filter(Boolean),
+        [`Your briefing (fictional reports). Your personal minimums: ${MINIMUMS.ceiling.toLocaleString()} ft ceiling, ${MINIMUMS.visibility} SM, VFR only.`, destWx.note ? `Note: ${destWx.note}.` : 'No significant weather noted.', icing ? 'AIRMET Zulu: moderate icing in clouds over the Cascades; freezing level near the surface east of the crest.' : ''].filter(Boolean),
         `What’s the flight category at ${dest.name}?`,
         (['VFR', 'MVFR', 'IFR', 'LIFR'] as Cat[]).map((c) => ({ t: c, ok: c === destWx.cat, why: c === destWx.cat ? undefined : `Ceiling ${destWx.ceil ?? 'none'}, visibility ${destWx.vis} SM → ${destWx.cat}.` })),
         ['AIM 7-1-7: **VFR** ceiling > 3,000 and vis > 5; **MVFR** 1,000–3,000 and/or 3–5; **IFR** 500 to < 1,000 and/or 1 to < 3; **LIFR** < 500 and/or < 1. Ceiling = lowest BKN/OVC layer.'],
         ['aim:7-1-7', 'aim:7-1-28']),
       readout: { tag: 'Fictional METARs', cat: destWx.cat, text: `${depWx.text}\n${destWx.text}` }
     }
+  });
+  const xwInfo = crosswind(dest, destWx);
+  const windTxt = `${pad(destWx.dir)}° at ${destWx.spd}${destWx.gust ? ` gusting ${destWx.gust}` : ''} knots`;
+  briefing.push({
+    id: 'v-xw', title: 'enVironment: crosswind', phase: 0,
+    item: mk('st-xw', 'V', 'a-perf', ['PA.IV.A.R2a', 'PA.I.C.R1b'],
+      [`${dest.name} wind: ${windTxt}. Runway ${dest.rwy}. Best-aligned end: Runway ${xwInfo.rwy}, about ${xwInfo.angle}° off the wind.`, `Your personal maximum is ${MINIMUMS.crosswind} knots (the 152’s maximum demonstrated crosswind). Use the gust value if there is one.`],
+      'Is the crosswind within your personal maximum?',
+      xwInfo.kt <= MINIMUMS.crosswind
+        ? [{ t: `Yes: about ${xwInfo.kt} knots`, ok: true }, { t: 'No: over 12 knots', why: `About ${xwInfo.kt} knots: within your maximum.` }]
+        : [{ t: `No: about ${xwInfo.kt} knots`, ok: true }, { t: 'Yes: within 12 knots', why: `About ${xwInfo.kt} knots: over your maximum.` }],
+      [`Crosswind component ≈ wind speed × sin(angle): ${destWx.gust ?? destWx.spd} × sin ${xwInfo.angle}° ≈ **${xwInfo.kt} kt**. The POH wind component chart gives the same answer.`, 'The 12-knot maximum demonstrated crosswind is **not a limitation** in the POH, but it’s your personal limit, and that makes it binding for you.'],
+      ['poh:5-11', 'poh:4-3'])
   });
   const chartItem = bankById(dest.chart === 'Klamath Falls' ? (dest.id === 'KEUG' ? 'c-eug-block' : 'c-bdn-block') : 'c-pdx-shelf');
   if (chartItem) briefing.push({ id: 'v2', title: 'enVironment: chart', phase: 0, item: chartItem });
