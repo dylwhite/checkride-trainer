@@ -1,6 +1,7 @@
 import { IconBook, IconChecklist, IconChevron, IconGear } from '../components/Icons';
 import { Ring } from '../components/Ring';
-import { PAVE, SAMPLE_PROFILE, type Pave } from '../data/sample';
+import { SAMPLE_PROFILE } from '../data/sample';
+import { PAVE, type Pave } from '../data/types';
 
 export function Progress() {
   return (
