@@ -388,6 +388,125 @@ T.push(
   }
 );
 
+// ── Batch 3 tables ──
+T.push(
+  {
+    id: 'regional', pave: 'V', topic: 'v-airport', acs: ['PA.II.D.K1', 'PA.III.B.K1'],
+    rows: [
+      { q: 'KHIO field elevation?', a: '208 ft', c: ['cs:KHIO'], x: ['374 ft', '58 ft', '1,208 ft'] },
+      { q: 'KHIO traffic pattern altitude for light airplanes?', a: '1,208 ft MSL (1,000 AGL)', c: ['cs:KHIO'], x: ['1,708 ft MSL', '1,000 ft MSL', '800 ft AGL'] },
+      { q: 'KHIO tower and ground frequencies?', a: 'Tower 119.3, Ground 121.7', c: ['cs:KHIO'], x: ['Tower 118.9, Ground 121.7', 'Tower 119.3, Ground 121.9', 'Tower 120.9, Ground 121.8'] },
+      { q: 'KHIO ATIS frequency?', a: '127.65', c: ['cs:KHIO'], x: ['125.225', '135.625', '118.525'] },
+      { q: 'KHIO’s longest runway?', a: '13R-31L, 6,600 × 150 ft', c: ['cs:KHIO'], x: ['02-20, 3,820 ft', '13L-31R, 3,600 ft', '16R-34L, 8,009 ft'] },
+      { q: 'Which KHIO runways use right traffic?', a: 'Runway 02 and Runway 31R', c: ['cs:KHIO'], x: ['Runway 13R and 20', 'All runways', 'None'] },
+      { q: 'KHIO airspace when the tower is closed?', a: 'Class E', c: ['cs:KHIO'], x: ['Class G', 'Class C', 'Class D'] },
+      { q: 'KHIO has a VOT for checking your VOR receiver. Frequency?', a: '115.2', c: ['cs:KHIO'], x: ['117.4', '110.7', '119.3'] },
+      { q: 'KHIO’s preferred runway for noise abatement?', a: 'Runway 31L', c: ['cs:KHIO'], x: ['Runway 13R', 'Runway 02', 'Runway 20'] },
+      { q: 'Bend (KBDN): elevation, CTAF, airspace?', a: '3,459 ft; CTAF 123.0; Class E', c: ['cs:KBDN'], x: ['3,082 ft; tower 124.5; Class D', '374 ft; tower 118.9; Class D'] },
+      { q: 'Redmond (KRDM): elevation and tower?', a: '3,082 ft; tower 124.5 (part-time)', c: ['cs:KRDM'], x: ['3,459 ft; CTAF 123.0', '213 ft; tower 119.1'] },
+      { q: 'Eugene (KEUG): elevation and pattern altitude?', a: '374 ft; TPA 1,174 MSL (800 AGL)', c: ['cs:KEUG'], x: ['374 ft; TPA 1,374 MSL', '250 ft; TPA 1,050 MSL'] },
+      { q: 'Eugene’s airspace?', a: 'Class D when the tower operates (1400–0730Z‡), otherwise Class E', c: ['cs:KEUG'], x: ['Class C at all times', 'Class B', 'Class E only'] },
+      { q: 'Salem (KSLE) tower frequency?', a: '119.1', c: ['cs:KSLE'], x: ['119.3', '124.4', '120.35'] },
+      { q: 'Olympia (KOLM) tower frequency?', a: '124.4', c: ['cs:KOLM'], x: ['124.5', '119.1', '120.9'] },
+      { q: 'Troutdale (KTTD) tower frequency?', a: '120.9', c: ['cs:KTTD'], x: ['119.3', '120.35', '124.4'] },
+      { q: 'Aurora State (KUAO) tower frequency?', a: '120.35', c: ['cs:KUAO'], x: ['120.9', '119.1', '118.9'] },
+      { q: 'Astoria (KAST): CTAF and airspace?', a: 'CTAF 122.8; Class E', c: ['cs:KAST'], x: ['Tower 124.4; Class D', 'CTAF 123.0; Class G'] },
+      { q: 'Scappoose (KSPB) CTAF?', a: '122.8', c: ['cs:KSPB'], x: ['123.0', '122.725', '119.3'] },
+      { q: 'McMinnville (KMMV) CTAF?', a: '123.0', c: ['cs:KMMV'], x: ['122.8', '122.725', '120.35'] },
+      { q: 'Corvallis (KCVO) pattern altitude?', a: '1,050 ft MSL (800 AGL)', c: ['cs:KCVO'], x: ['1,250 ft MSL', '1,174 ft MSL'] },
+      { q: 'Which airport’s Class D tops out at 5,600 ft MSL in the high desert?', a: 'Redmond (KRDM)', c: ['cug:p. 16', 'cs:KRDM'], x: ['Bend (KBDN)', 'Eugene (KEUG)', 'Hillsboro (KHIO)'] }
+    ]
+  },
+  {
+    id: 'pohspec', pave: 'A', topic: 'a-perf', acs: ['PA.I.F.K1', 'PA.I.G.K1'],
+    rows: [
+      { q: 'C152 stall speed (KCAS), flaps up, power off, max weight?', a: '48 knots', c: ['poh:ii'], x: ['43 knots', '55 knots', '40 knots'] },
+      { q: 'C152 stall speed (KCAS), flaps down, power off, max weight?', a: '43 knots', c: ['poh:ii'], x: ['48 knots', '35 knots', '50 knots'] },
+      { q: 'C152 service ceiling (POH)?', a: '14,700 ft', c: ['poh:ii'], x: ['12,500 ft', '18,000 ft', '10,000 ft'] },
+      { q: 'C152 rate of climb at sea level (POH specs)?', a: '715 fpm', c: ['poh:ii'], x: ['500 fpm', '1,000 fpm', '900 fpm'] },
+      { q: 'C152 oil capacity (POH specs)?', a: '7 quarts', c: ['poh:ii'], x: ['6 quarts', '8 quarts', '5 quarts'] },
+      { q: 'C152 unusable fuel?', a: '1.5 gal total (0.75 gal each tank)', c: ['poh:2-7', 'poh:2-5'], x: ['3 gal total', '0.5 gal total'] },
+      { q: 'Why re-top the C152’s tanks after refueling?', a: 'Cross-feeding between tanks: re-topping assures maximum capacity', c: ['poh:2-8'], x: ['To cool the fuel', 'To check for water'] },
+      { q: 'Minimum fuel for which C152 takeoffs were demonstrated?', a: '2 gallons total (1 per tank). Takeoffs weren’t demonstrated with less.', c: ['poh:2-8'], x: ['5 gallons total', 'Half tanks'] },
+      { q: 'What does the C152 primer draw from?', a: 'The fuel strainer; it injects fuel into the cylinder intake ports', c: ['poh:7-19'], x: ['The left tank only', 'The carburetor bowl'] },
+      { q: 'Max rate of climb at 1,670 lb, 4,000 ft, 20 °C (POH)?', a: '505 fpm', c: ['poh:5-13'], x: ['600 fpm', '415 fpm', '700 fpm'] },
+      { q: 'Short-field takeoff at sea level, 20 °C, 1,670 lb: total over 50 ft (POH)?', a: '1,390 ft', c: ['poh:5-12'], x: ['1,190 ft', '1,495 ft', '2,080 ft'] },
+      { q: 'Short-field takeoff at 6,000 ft PA, 30 °C, 1,670 lb: total over 50 ft (POH)?', a: '2,855 ft', c: ['poh:5-12'], x: ['2,250 ft', '3,255 ft', '2,525 ft'] },
+      { q: 'POH takeoff correction for a dry grass runway?', a: 'Increase distances by 15% of the ground roll figure', c: ['poh:5-12'], x: ['Increase by 50%', 'No correction'] },
+      { q: 'POH takeoff correction for headwind?', a: 'Decrease distances 10% for each 9 knots', c: ['poh:5-12'], x: ['Decrease 10% per 2 knots', 'Decrease 50% for any headwind'] },
+      { q: 'POH takeoff correction for tailwind (up to 10 knots)?', a: 'Increase distances 10% for each 2 knots', c: ['poh:5-12'], x: ['Increase 10% per 9 knots', 'Tailwind takeoffs prohibited'] },
+      { q: 'Cruise at 6,000 ft, standard temp, 2,300 RPM: TAS and fuel flow (POH)?', a: '96 KTAS, 5.2 GPH', c: ['poh:5-15'], x: ['101 KTAS, 5.8 GPH', '90 KTAS, 4.7 GPH'] }
+    ]
+  },
+  {
+    id: 'pohemerg', pave: 'A', topic: 'a-perf', acs: ['PA.IX.B.K1', 'PA.IX.C.K3'], emergency: true,
+    rows: [
+      { q: 'Engine failure during takeoff roll: first two (memory) items?', a: 'Throttle IDLE, Brakes APPLY', c: ['poh:3-3'], x: ['Mixture idle cut-off, fuel off', 'Master off, ignition off'] },
+      { q: 'Electrical fire in flight: memory items?', a: 'Master OFF, vents/cabin air/heat CLOSED, fire extinguisher ACTIVATE', c: ['poh:3-6'], x: ['Mixture idle cut-off, fuel off', 'Radios off, alternator off'] },
+      { q: 'Engine fire in flight: airspeed per the POH?', a: '85 KIAS (increase if needed to find an incombustible mixture)', c: ['poh:3-6'], x: ['60 KIAS', '104 KIAS'] },
+      { q: 'Fire during start that does start: what next?', a: 'Run at 1,700 RPM for a few minutes, then shut down and inspect', c: ['poh:3-5'], x: ['Take off immediately', 'Shut down instantly'] },
+      { q: 'Electrical fire out and you need power: what about circuit breakers?', a: 'Check them for the faulty circuit but do not reset', c: ['poh:3-6'], x: ['Reset all of them', 'Pull every breaker'] },
+      { q: 'Ditching: power and speed on approach?', a: '300 ft/min descent at 55 KIAS, flaps 30°', c: ['poh:3-5'], x: ['Power off at 65 KIAS', '500 ft/min at 70 KIAS'] },
+      { q: 'Landing with a flat main tire?', a: 'Touch down good tire first, hold the flat off with aileron', c: ['poh:3-8'], x: ['Flat tire first', 'No-flap landing at high speed'] },
+      { q: 'Inadvertent icing: approach speed?', a: '65 to 75 KIAS depending on ice', c: ['poh:3-8'], x: ['54 KIAS', '85 KIAS'] },
+      { q: 'Spin recovery: first step in the C152 POH?', a: 'Ailerons neutral (then throttle idle, full opposite rudder)', c: ['poh:3-12'], x: ['Full forward elevator', 'Full power'] },
+      { q: 'Vacuum failure in cloud: what does the POH assume is left for attitude?', a: 'The electric turn coordinator', c: ['poh:3-11'], x: ['The attitude indicator', 'The heading indicator'] }
+    ]
+  },
+  {
+    id: 'regs2', pave: 'P', topic: 'p-privileges', acs: ['PA.I.A.K2', 'PA.I.E.K1'],
+    rows: [
+      { q: 'Special VFR: weather and clearance (fixed-wing, day)?', a: 'ATC clearance, clear of clouds, 1 SM flight visibility (1 SM ground visibility to take off or land)', c: ['cfr14:91.157(b)', 'cfr14:91.157(c)'] },
+      { q: 'Special VFR at night requires…?', a: 'An instrument rating and an IFR-equipped airplane', c: ['cfr14:91.157(b)'], x: ['Only a landing light', 'Nothing extra'] },
+      { q: 'Name two Appendix D airports near you where fixed-wing SVFR is prohibited.', a: 'Portland International and Seattle-Tacoma', c: ['cfr14:91 App. D'], x: ['Hillsboro and Troutdale', 'Eugene and Salem'] },
+      { q: 'Speed limit under a Class B shelf or in a VFR corridor?', a: '200 KIAS', c: ['cfr14:91.117(c)'] },
+      { q: 'Private pilot as aircraft salesman: requirement to demo?', a: 'At least 200 hours logged', c: ['cfr14:61.113(f)'], x: ['500 hours', 'A commercial certificate'] },
+      { q: 'What can a private pilot be reimbursed for on a sanctioned search and location mission?', a: 'Fuel, oil, airport expenditures, or rental fees', c: ['cfr14:61.113(e)'], x: ['Their time', 'Nothing'] },
+      { q: 'Glider tow recency (14 CFR 61.69)?', a: '3 actual or simulated tows (or 3 towed-glider PIC flights) within the preceding 24 calendar months', c: ['cfr14:61.69'], x: ['3 tows in 12 months', '1 tow in 90 days'] },
+      { q: 'What does PIC responsibility (14 CFR 91.3) include in an emergency?', a: 'You may deviate from any rule to the extent needed to meet the emergency', c: ['cfr14:91.3'], x: ['You must still follow every rule', 'Only ATC may authorize deviations'] },
+      { q: 'What must you know before every flight (14 CFR 91.103)?', a: 'All available information: weather, fuel, alternatives, known ATC delays, runway lengths, takeoff and landing data', c: ['cfr14:91.103'], x: ['Only the weather', 'Only fuel and weight'] },
+      { q: 'Part 141 private: how much checkride prep training is required, and when?', a: '3 hours within 60 days before the test', c: ['cfr14:141 App. B 4(b)(1)(iv)'], x: ['3 hours within 90 days', '1 hour within 30 days'] },
+      { q: 'Part 141 private: solo cross-country requirement?', a: '100 NM total, landings at 3 points, one leg over 50 NM straight-line', c: ['cfr14:141 App. B 5(a)'], x: ['150 NM total, one leg over 50 NM', '50 NM total'] },
+      { q: 'Who may perform preventive maintenance on the 152?', a: 'A certificated pilot who owns or operates it (not under Part 121/129/135), and it must be logged', c: ['cfr14:43.3(g)', 'cfr14:43.9'] },
+      { q: 'How long does a standard airworthiness certificate last?', a: 'As long as maintenance is done per Parts 43 and 91 and the aircraft is U.S.-registered', c: ['cfr14:21.181(a)'], x: ['7 years', '12 calendar months'] },
+      { q: 'Who is primarily responsible for AD compliance?', a: 'The owner or operator', c: ['cfr14:91.403(a)'], x: ['The mechanic', 'The FAA'] }
+    ]
+  },
+  {
+    id: 'aimops', pave: 'V', topic: 'v-airport', acs: ['PA.III.A.K2', 'PA.III.B.K1'],
+    rows: [
+      { q: 'Tower replies “Aircraft calling, standby.” Can you enter the Class D?', a: 'No: without your call sign, communication isn’t established', c: ['aim:3-2-5'] },
+      { q: 'Class B entry phrase you must hear?', a: 'An explicit clearance, e.g. “cleared into the Class Bravo”', c: ['aim:3-2-3', 'cfr14:91.131(a)'], x: ['Any squawk code', '“Radar contact”'] },
+      { q: 'Pattern entry per the AIM?', a: 'Level flight, abeam the midpoint of the runway, at pattern altitude', c: ['aim:4-3-3'], x: ['Descending on the 45 to downwind', 'Straight in from 5 miles'] },
+      { q: 'Departing the pattern per the AIM?', a: 'Straight out, or a 45° turn (in the pattern direction) beyond the departure end after reaching pattern altitude', c: ['aim:4-3-3'] },
+      { q: 'Radio failure arriving at a towered field: before joining the pattern?', a: 'Stay outside or above the Class D until you determine the direction and flow of traffic', c: ['aim:4-2-13'] },
+      { q: 'Radio failure before departure: what does the AIM say?', a: 'Try to get it fixed; otherwise phone the tower and ask to depart without two-way radio', c: ['aim:4-2-13'], x: ['Depart and squawk 7600', 'Depart only in Class G'] },
+      { q: 'Can a student pilot accept a LAHSO clearance?', a: 'The AIM says students shouldn’t participate in LAHSO', c: ['aim:4-3-11'], x: ['Yes, any pilot must accept', 'Only at night'] },
+      { q: 'You prefer a different runway than ATC assigned. What do you do?', a: 'Advise ATC', c: ['aim:4-3-6'], x: ['Use it without asking', 'Nothing: you must accept'] },
+      { q: 'Thunderstorm don’t: flying under the anvil?', a: 'Don’t: severe and extreme clear air turbulence is possible', c: ['aim:7-1-27'] },
+      { q: 'What does vivid, frequent lightning indicate?', a: 'Probably a severe thunderstorm', c: ['aim:7-1-27'], x: ['A dissipating storm', 'Light rain only'] },
+      { q: 'In distress and not already talking to ATC: transponder?', a: 'Squawk 7700 with Mode C', c: ['aim:6-3-2'], x: ['Squawk 7600', 'Squawk 1200'] },
+      { q: 'Disaster/hazard TFRs (14 CFR 91.137) protect what?', a: 'People and property from a surface hazard, and disaster relief aircraft', c: ['cfr14:91.137(a)'], x: ['Only the President', 'Only airliners'] }
+    ]
+  }
+);
+
+T.push({
+  id: 'misc', pave: 'V', topic: 'v-transponder', acs: ['PA.VI.B.K4', 'PA.XI.A.K1'],
+  rows: [
+    { q: 'GTX 345: what does the ON key do?', a: 'Powers on with altitude reporting disabled', c: ['gtx:2-1'], x: ['Enables altitude reporting', 'Sends an ident'] },
+    { q: 'GTX 345: what does IDNT do?', a: 'Activates the ident function', c: ['gtx:2-1'], x: ['Sets 1200', 'Turns off ADS-B'] },
+    { q: 'GTX 345: is there a pilot-selectable ground mode?', a: 'No; it detects air/ground itself, so use ALT', c: ['gtx:2-1'], x: ['Yes, GND mode', 'Yes, use STBY'] },
+    { q: 'Night vision: dim red cockpit light gives moderate dark adaptation in about how long?', a: 'About 20 minutes', c: ['aim:8-1-6'], x: ['About 2 minutes', 'About 2 hours'] },
+    { q: 'Landing behind a larger aircraft on a crossing runway?', a: 'Cross above its flight path', c: ['aim:7-4-6'], x: ['Cross below its flight path', 'Land before the intersection always'] },
+    { q: 'For accurate MOA hours, whom should you contact?', a: 'Any FSS within 100 miles of the area', c: ['aim:3-4-5'], x: ['The nearest tower', 'The military base by phone only'] },
+    { q: 'ILS critical area holding position marking?', a: 'Two solid yellow lines connected by pairs of solid lines (ladder-like)', c: ['aim:2-3-5'], x: ['Four yellow lines, two solid two dashed', 'A single white bar'] },
+    { q: 'BasicMed: may your most recent FAA medical be expired?', a: 'Yes, as long as it wasn’t suspended, revoked, or denied', c: ['cfr14:61.23(c)(3)(ii)'], x: ['No, it must be current', 'Only if it was first class'] },
+    { q: 'A VSI in level flight with a blocked static port shows…?', a: 'Zero, continuously, even in a climb or descent', c: ['phak:8-11'], x: ['A constant climb', 'Wild swings'] },
+    { q: 'What does a squawk of 7500 tell ATC?', a: 'Unlawful interference (hijack)', c: ['aim:4-1-20'], x: ['Radio failure', 'Medical emergency'] }
+  ]
+});
+
 const shuffle = <V,>(a: V[]) => a.map((v) => [Math.random(), v] as const).sort((p, q) => p[0] - q[0]).map((p) => p[1]);
 
 function toItem(t: Table, r: Row, i: number): Item {

@@ -8,6 +8,7 @@ import { bank, byId } from '../data/bank';
 import { WHAT_IF } from '../data/oral';
 import { cite } from '../data/sources';
 import { PAVE, type Item } from '../data/types';
+import { useImmersive } from '../lib/immersive';
 import { go } from '../lib/router';
 import { fill, logAnswer } from '../lib/session';
 
@@ -66,6 +67,7 @@ function OralIntro({ onStart }: { onStart: () => void }) {
 }
 
 function OralRun() {
+  useImmersive();
   const ex = useMemo(() => buildOral(3), []);
   const [i, setI] = useState(0);
   const [tally, setTally] = useState({ ok: 0, partial: 0, miss: 0 });

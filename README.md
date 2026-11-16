@@ -31,7 +31,12 @@ built around a PAVE outline, a Cessna 152, and the KHIO / Pacific Northwest area
   AFH 8083-3C, AWH 8083-28B, RMH 8083-2A, W&B 8083-1B, AIM eff. 9 Jul 2026, eCFR as of 12 Nov 2026,
   Chart Users' Guide 9 Jul 2026, Chart Supplement NW 29 Oct 2026, Seattle sectional 29 Oct 2026,
   1985 Cessna 152 POH, Garmin GTN 650 and GTX 345 pilot's guides).
-- `src/data/notes.ts` is the Notes Check (corrections to the outline). `src/data/items.ts` is the question bank.
+- `src/data/notes.ts` is the Notes Check (corrections to the outline).
+- Question bank (`src/data/bank.ts` combines them): `items.ts` and `scenarios.ts` (hand-written scenarios,
+  emergencies, chart questions), `facts.ts` (quick-recall tables; each row becomes a multiple-choice question
+  and a flashcard), `wb.ts` (weight & balance problems from the POH sample airplane), `oral.ts`
+  (examiner what-if follow-ups), `story.ts` (Flight Story generator with Chart Supplement airport data).
+- To add content, add rows or items to these files with citations, then run the citation verifier.
 - `scripts/verify-citations.py` checks every citation against locally downloaded source text.
 
 ## Copyright rule
