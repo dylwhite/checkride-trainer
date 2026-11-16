@@ -23,3 +23,9 @@ export function useRoute(): string {
 export function go(route: string) {
   location.hash = '#/' + route;
 }
+
+export function query(): URLSearchParams {
+  const h = location.hash;
+  const i = h.indexOf('?');
+  return new URLSearchParams(i >= 0 ? h.slice(i + 1) : '');
+}
