@@ -220,6 +220,18 @@ export const SCENARIOS2: Item[] = [
     explain: ['The owner or operator is primarily responsible for maintaining the aircraft in an airworthy condition, **including compliance with ADs** (part 39). As PIC you verify airworthiness before flight.'],
     c: ['cfr14:91.403(a)', 'cfr14:91.409(b)'] }),
 
+  S({ id: 's2-xw-goaround', pave: 'A', topic: 'a-perf', acs: ['PA.IV.N.K1', 'PA.IV.N.R1'],
+    setup: ['On short final, the gusty crosswind is beyond the 152’s 12 kt maximum demonstrated crosswind and your personal limit. You’re drifting off the centerline and can’t hold it, 200 ft above the runway.'],
+    prompt: 'What now, per the POH and AFH?',
+    choices: [
+      ['Go around: full throttle, carb heat cold, flaps to 20°, 55 KIAS, then slowly retract the flaps. Divert to a runway more aligned with the wind.', true],
+      ['Keep going and use full aileron into the wind; 12 kt is a demonstrated value, not a limitation, so landing is legal.', false, 'Legal isn’t the question. The approach is unstabilized below 300 ft AGL: go around.'],
+      ['Go around: full throttle, carb heat cold, flaps up all at once, 55 KIAS.', false, 'The POH says reduce flaps to 20° first, then retract slowly at a safe airspeed.'],
+      ['Continue, but add 10 knots and land with no flaps so the controls have more authority in the gusts.', false, 'An unstabilized approach below 300 ft AGL calls for an immediate go-around.']
+    ],
+    explain: ['AFH: an **immediate go-around** should be initiated if the approach becomes **unstabilized below 300 ft AGL**. POH Balked Landing: **throttle full open, carb heat cold, flaps 20°, 55 KIAS, flaps retract slowly**. The 12 kt max demonstrated crosswind is not a limitation, but it’s your personal limit for a reason.'],
+    c: ['afh:9-6', 'poh:4-10', 'poh:4-3'] }),
+
   // ───────── ENVIRONMENT ─────────
   S({ id: 's2-surface-analysis', pave: 'V', topic: 'v-wx-general', acs: ['PA.I.C.K2'],
     setup: ['Planning a trip to Olympia for tomorrow, you want to see where the fronts and the high- and low-pressure centers are right now.'],

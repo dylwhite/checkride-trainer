@@ -15,7 +15,36 @@ export interface StorySave {
   results: { title: string; v: Verdict }[];
   goCall?: 'go' | 'nogo';
   done?: boolean;
+  extra?: { afterId: string; id: string; note: string }[]; // consequence legs added by missed decisions
 }
+
+// What a missed in-flight decision leads to next (all verified bank items).
+type Conseq = { id: string; note: string; setup?: string[] }; // setup replaces the item's own scene text
+
+const CONSEQUENCE: Record<string, Conseq> = {
+  's-carb-ice': { id: 's-restart-items', note: 'The ice kept building. The engine sputters and quits.' },
+  'e-low-volt': { id: 's-lostcomm', note: 'The battery kept draining. A few minutes later the radios go silent.', setup: ['Nobody answers your calls and you can’t hear anything. You turn back toward KHIO, where the tower is open and the weather is good VFR.'] },
+  's-vacuum': { id: 's-imc-180', note: 'Distracted by the failed gyros, you drift into a cloud bank and lose sight of the ground.', setup: [] },
+  's-thunderstorm': { id: 's-imc-180', note: 'Heavy rain from the storm’s edge wipes out your visibility. You can’t see the ground.', setup: [] },
+  's-cascades-climb': { id: 's-precautionary', note: 'Climb performance isn’t what you hoped, and the ridgeline is close. You turn away and decide to land and reassess.', setup: ['The engine runs fine. You’ve picked a large, smooth field to land in.'] },
+  's-mountain-wave': { id: 's-emerg-landing-items', note: 'The downdraft wins. The engine can’t hold altitude and you need a place to put it down.' },
+  'e-efato': { id: 's-emerg-landing-items', note: 'With no runway left and no power, you’re landing off-airport.' },
+  'e-door': { id: 's-precautionary', note: 'The noise and distraction are getting to you. You decide to land and sort it out on the ground.', setup: ['The engine runs fine. You’ve picked a large, smooth field to land in.'] }
+};
+
+// What launching on a no-go day leads to, for the first reason the flight shouldn’t have gone.
+function launchConsequence(story: Story): Conseq | null {
+  const why = story.noGo[0] ?? '';
+  if (why.includes('icing')) return { id: 's-icing', note: 'You launched anyway. Over the Cascades you enter a thin cloud layer, and ice starts forming on the windshield and wing struts.', setup: [] };
+  if (why.includes('Weather')) return { id: 's-imc-180', note: 'You launched anyway. The clouds get lower and the visibility worse, until you’re in cloud and can’t see the ground.', setup: [] };
+  if (why.includes('Crosswind')) return { id: 's2-xw-goaround', note: `You launched anyway. On final at ${story.dest.name}, the windsock is standing straight out across the runway.` };
+  if (why.includes('Weight')) return { id: 's-cg-effects', note: 'You launched anyway. The airplane feels different from the moment the nosewheel lifts off.' };
+  if (why.includes('position light')) return { id: 's-inop-navlight', note: 'You launched anyway.', setup: [`The left position light is inoperative, and you’ll land at ${story.dest.name} about 20 minutes after sunset.`] };
+  if (why.includes('IMSAFE')) return { id: 's-precautionary', note: 'You launched anyway. Halfway there you feel foggy and slow to respond, and decide to get on the ground.', setup: ['The engine runs fine. You’ve picked a large, smooth field to land in.'] };
+  return null; // e.g. an expired annual: nothing happens in flight, but the debrief explains why it was illegal
+}
+
+const withSetup = (it: NonNullable<ReturnType<typeof byId>>, c: Conseq) => (c.setup ? { ...it, setup: c.setup.length ? c.setup : undefined } : it);
 
 const PHASES = ['Brief', 'Depart', 'En route', 'Arrive', 'Debrief'];
 const SEASON_TEXT = { summer: 'summer', fall: 'fall', winter: 'winter', spring: 'spring' };
@@ -77,14 +106,32 @@ function FlyRun({ s, onChange }: { s: StorySave; onChange: (s: StorySave) => voi
   useImmersive();
   const story = useMemo(() => storyFor(s.seed), [s.seed]);
   const brief = story.briefing;
-  const legs = story.flight;
   const shouldGo = story.noGo.length === 0;
+  type FLeg = { id: string; title: string; phase: number; item: NonNullable<ReturnType<typeof byId>>; vars?: Record<string, string>; note?: string };
+  const legs: FLeg[] = useMemo(() => {
+    const out: FLeg[] = [];
+    if (s.goCall === 'go' && !shouldGo) {
+      const c = launchConsequence(story);
+      const it = c && byId(c.id);
+      if (c && it) out.push({ id: c.id, title: 'Consequence', phase: 2, item: withSetup(it, c), note: c.note });
+      return out;
+    }
+    for (const l of story.flight) {
+      out.push(l);
+      for (const x of s.extra ?? []) if (x.afterId === l.id) {
+        const it = byId(x.id);
+        const c = CONSEQUENCE[x.afterId];
+        if (it) out.push({ id: x.id, title: 'Consequence', phase: l.phase, item: c ? withSetup(it, c) : it, note: x.note });
+      }
+    }
+    return out;
+  }, [s.seed, s.goCall, (s.extra ?? []).length]);
   // Step layout: 0 intro · 1..B briefing · B+1 go/no-go · then flight legs · then debrief
   const B = brief.length;
   const goStep = B + 1;
   const firstLeg = goStep + 1;
   const debrief = firstLeg + legs.length;
-  const stopAfterGo = s.goCall !== undefined && (s.goCall === 'nogo' || !shouldGo);
+  const stopAfterGo = s.goCall === 'nogo';
   const step = stopAfterGo && s.step > goStep ? debrief : s.step;
   const phase = step <= goStep ? 0 : step >= debrief ? 4 : legs[step - firstLeg].phase;
   const advance = (patch: Partial<StorySave> = {}) => { onChange({ ...s, ...patch, step: s.step + 1 }); window.scrollTo(0, 0); };
@@ -132,10 +179,17 @@ function FlyRun({ s, onChange }: { s: StorySave; onChange: (s: StorySave) => voi
 
       {step >= firstLeg && step < debrief && (
         <div class="stack">
-          <p class="label" style={{ color: 'var(--accent)' }}>{legs[step - firstLeg].title}</p>
+          <p class="label" style={{ color: legs[step - firstLeg].note ? 'var(--miss)' : 'var(--accent)' }}>{legs[step - firstLeg].title}</p>
+          {legs[step - firstLeg].note && <div class="card" style={{ borderLeft: '4px solid var(--miss)' }}><p>{legs[step - firstLeg].note}</p></div>}
           <StepView key={step} step={{ item: legs[step - firstLeg].item, vars: legs[step - firstLeg].vars ?? {} }}
-            onAnswered={(v) => { logAnswer(legs[step - firstLeg].item.id, v, { topic: legs[step - firstLeg].item.topic, xp: v === 'ok' ? 20 : 0 }); s.results.push({ title: legs[step - firstLeg].title, v }); }}
-            onNext={() => advance({ results: s.results })} />
+            onAnswered={(v) => {
+              const leg = legs[step - firstLeg];
+              logAnswer(leg.item.id, v, { topic: leg.item.topic, xp: v === 'ok' ? 20 : 0 });
+              s.results.push({ title: leg.note ? 'Consequence' : leg.title, v });
+              const c = !leg.note && v === 'miss' ? CONSEQUENCE[leg.id] : undefined;
+              if (c && !(s.extra ?? []).some((x) => x.afterId === leg.id)) s.extra = [...(s.extra ?? []), { afterId: leg.id, id: c.id, note: c.note }];
+            }}
+            onNext={() => advance({ results: s.results, extra: s.extra })} />
         </div>
       )}
 
