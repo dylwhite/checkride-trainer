@@ -3,6 +3,7 @@ import { bank, byId } from '../data/bank';
 import type { Item } from '../data/types';
 import { prioritize, type AnswerLog, type TopicState, type Verdict } from './progress';
 import { load, save } from './storage';
+import { applyMix, type Mix } from './mix';
 export type { Verdict, AnswerLog };
 
 export interface SessionStep {
@@ -35,7 +36,7 @@ function followUpIds(items: Item[]) {
   return new Set(items.map((i) => i.next).filter(Boolean) as string[]);
 }
 
-export function buildSession(leads = 5, filter: (i: Item) => boolean = () => true, topics?: Map<string, TopicState>): SessionStep[] {
+export function buildSession(leads = 5, filter: (i: Item) => boolean = () => true, topics?: Map<string, TopicState>, mix?: Mix): SessionStep[] {
   const all = bank();
   const fu = followUpIds(all);
   const eligible = all.filter((i) => !fu.has(i.id) && filter(i));
@@ -43,8 +44,9 @@ export function buildSession(leads = 5, filter: (i: Item) => boolean = () => tru
   const ordered = topics ? prioritize(eligible, topics) : [];
   const rest = shuffle(eligible.filter((i) => !ordered.includes(i)));
   const pool = [...ordered, ...rest];
+  const leadItems = mix ? applyMix(pool, mix, leads) : pool.slice(0, leads);
   const steps: SessionStep[] = [];
-  for (const lead of pool.slice(0, leads)) {
+  for (const lead of leadItems) {
     const s = step(lead);
     steps.push(s);
     const f = lead.next && byId(lead.next, all);

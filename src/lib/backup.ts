@@ -1,7 +1,7 @@
 // Export / import a backup of everything stored on this device.
 import { load, save } from './storage';
 
-const KEYS = ['answers', 'story', 'settings'];
+const KEYS = ['answers', 'story', 'settings', 'mix', 'checkride'];
 
 export async function exportBackup() {
   const data: Record<string, unknown> = {};
