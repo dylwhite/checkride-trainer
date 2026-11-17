@@ -2,11 +2,12 @@
 import { FACT_ITEMS } from './facts';
 import { ITEMS } from './items';
 import { SCENARIOS } from './scenarios';
+import { SCENARIOS2 } from './scenarios2';
 import type { Item } from './types';
 import { wbItem } from './wb';
 import { GENERATORS } from './generators';
 
-const STATIC: Item[] = [...ITEMS, ...SCENARIOS, ...FACT_ITEMS];
+const STATIC: Item[] = [...ITEMS, ...SCENARIOS, ...SCENARIOS2, ...FACT_ITEMS];
 
 // Returns the bank with fresh copies of generated items (e.g. a new W&B problem).
 export function bank(): Item[] {
