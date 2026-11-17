@@ -1,6 +1,7 @@
 import { TabBar } from './components/TabBar';
 import { useRoute } from './lib/router';
 import { Progress } from './screens/Progress';
+import { Review } from './screens/Review';
 import { Checkride } from './screens/Checkride';
 import { Drills } from './screens/Drills';
 import { Fly } from './screens/Fly';
@@ -24,6 +25,7 @@ export function App() {
     case 'settings': screen = <Settings />; break;
     case 'guide': screen = <StudyGuide />; break;
     case 'notes': screen = <NotesCheck />; break;
+    case 'review': screen = <Review />; break;
     default: screen = <Today />;
   }
   return (
