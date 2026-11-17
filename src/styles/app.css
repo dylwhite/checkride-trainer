@@ -432,3 +432,9 @@ button.card:disabled { opacity: 0.6; }
 .acs-row { display: grid; gap: 6px; font-size: var(--fs-sm); }
 .acs-row .xp-track { height: 8px; }
 .section-intro { border-color: color-mix(in srgb, var(--pave-a) 40%, var(--border)); }
+input[type='range'] { width: 100%; min-height: 32px; accent-color: var(--accent); }
+.search { width: 100%; min-height: 44px; padding: 0 var(--s4); border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; }
+.review-topic { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--s3) var(--s4); background: var(--surface); }
+.review-topic summary { cursor: pointer; min-height: 32px; }
+.review-choices { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; font-size: var(--fs-sm); }
+.review-choices .ok, .review-choices li.ok { color: var(--ok); font-weight: 600; }

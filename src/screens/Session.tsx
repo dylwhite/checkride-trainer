@@ -8,6 +8,7 @@ import { PAVE } from '../data/types';
 import { getLog, replay } from '../lib/progress';
 import { go, query } from '../lib/router';
 import { buildSession, DRILL_LABEL, drillFilter, fill, logAnswer, type SessionStep } from '../lib/session';
+import { getMix } from '../lib/mix';
 
 const KEYS = ['A', 'B', 'C', 'D', 'E'];
 const KIND_LABEL = { scenario: 'Scenario', recall: 'Quick recall', chart: 'Chart' };
@@ -45,7 +46,9 @@ export function Session() {
     (async () => {
       const filter = drill ? await drillFilter(drill) : () => true;
       const topics = replay(await getLog());
-      setSteps(buildSession(timed ? 40 : 6, filter, drill === 'weak' ? undefined : topics));
+      // Mixed sessions follow your question mix from Settings; focused drills don't.
+      const mix = !drill || drill === 'mixed' || ['P', 'A', 'V', 'E'].includes(drill) || drill === 'emergency' ? await getMix() : undefined;
+      setSteps(buildSession(timed ? 40 : 6, filter, drill === 'weak' ? undefined : topics, mix));
     })();
   }, []);
 

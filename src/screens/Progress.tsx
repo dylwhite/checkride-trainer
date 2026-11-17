@@ -91,9 +91,14 @@ export function Progress() {
           <span class="li-text"><b>Notes Check</b><br /><span class="muted" style={{ fontSize: 'var(--fs-sm)' }}>Fixes to your outline, with sources</span></span>
           <IconChevron class="chev" />
         </a>
+        <a class="list-item" href="#/review" style={{ '--c': 'var(--pave-a)' }}>
+          <span class="li-icon"><IconChecklist /></span>
+          <span class="li-text"><b>Question review</b><br /><span class="muted" style={{ fontSize: 'var(--fs-sm)' }}>Every question, answer, and source, for your CFI</span></span>
+          <IconChevron class="chev" />
+        </a>
         <a class="list-item" href="#/settings" style={{ '--c': 'var(--text-2)' }}>
           <span class="li-icon"><IconGear /></span>
-          <span class="li-text"><b>Settings</b><br /><span class="muted" style={{ fontSize: 'var(--fs-sm)' }}>Appearance and personal minimums</span></span>
+          <span class="li-text"><b>Settings</b><br /><span class="muted" style={{ fontSize: 'var(--fs-sm)' }}>Appearance, question mix, minimums</span></span>
           <IconChevron class="chev" />
         </a>
       </nav>

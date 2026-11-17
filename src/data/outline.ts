@@ -337,7 +337,12 @@ export const OUTLINE: Topic[] = [
     id: 'a-hyd', pave: 'A', title: 'Hydraulic System (Brakes)',
     user: ['Hydraulic System'],
     acs: ['PA.I.G.K1e'],
-    facts: [],
+    facts: [
+      { t: 'Each main wheel has a single-disc, hydraulically actuated brake, connected by a hydraulic line to a master cylinder on each of the pilot’s rudder pedals. Press the tops of the pedals to brake.', c: ['poh:7-22'] },
+      { t: 'Parking brake: a knob on the lower left side of the instrument panel sets both main wheel brakes.', c: ['poh:7-22'] },
+      { t: 'Signs of impending brake failure: gradual decrease in braking action, noisy or dragging brakes, soft or spongy pedals, excessive travel and weak braking.', c: ['poh:7-22'] },
+      { t: 'If braking weakens on the roll: let up, then reapply with heavy pressure. Spongy pedals: pump them. One brake fails: use the other sparingly with opposite rudder.', c: ['poh:7-22'] }
+    ],
     refs: ['poh:Sec. 7']
   },
   {
@@ -354,7 +359,13 @@ export const OUTLINE: Topic[] = [
     id: 'a-preflight', pave: 'A', title: 'Preflight Inspection',
     user: ['Preflight Inspections'],
     acs: ['PA.II.A.K3'],
-    facts: [],
+    facts: [
+      { t: 'Before every flight, become familiar with all available information, including weather, fuel, alternatives, known ATC delays, runway lengths, and takeoff/landing distances.', c: ['cfr14:91.103'] },
+      { t: 'Fuel strainer: pull the drain knob for at least four seconds before the first flight of the day and after each refueling. If you find water, drain all points, rock the wings and lower the tail, and resample until clear.', c: ['poh:4-6'] },
+      { t: 'Fuel tank sumps: drain at least a cupful from each to check for water, sediment, and proper grade.', c: ['poh:4-6'] },
+      { t: 'Oil: don’t operate with less than four quarts; fill to six for extended flight.', c: ['poh:4-6'] },
+      { t: 'Check the static source opening (left side of the fuselage) for stoppage.', c: ['poh:4-6'] }
+    ],
     refs: ['poh:Sec. 4', 'afh:ch. 2']
   },
 
@@ -372,7 +383,11 @@ export const OUTLINE: Topic[] = [
     id: 'v-flightplan', pave: 'V', title: 'Elements of a Flight Plan',
     user: ['Aircraft Info', 'Pilot Info', 'Route', 'ETE', 'Fuel Required', 'Souls on Board', 'Types of Airspeed', 'Cruising Altitude and Mag Course', 'Departure Airport', 'Arrival Airport', 'Alternates'],
     acs: ['PA.I.D.K4', 'PA.I.D.K5'],
-    facts: [],
+    facts: [
+      { t: 'A VFR flight plan isn’t required, but activating it gets you VFR search and rescue coverage. Activate it after departure.', c: ['aim:5-1-5'] },
+      { t: 'If you fail to report or cancel within 1/2 hour after your ETA, search and rescue procedures start. Close it when you land.', c: ['aim:5-1-14'] },
+      { t: 'A VFR flight plan doesn’t get you separation or traffic service; that’s flight following.', c: ['aim:5-1-5', 'aim:4-1-15'] }
+    ],
     refs: ['aim:5-1-5']
   },
   {
@@ -413,14 +428,26 @@ export const OUTLINE: Topic[] = [
     id: 'v-wx-general', pave: 'V', title: 'General Weather',
     user: ['Surface Analysis Charts', 'Prog Charts', 'High Pressure', 'Low Pressure', 'Stability', 'Wind Direction', 'Fronts', 'Clouds', 'Precipitation', 'Turbulence', 'Icing', 'Fog', 'Visibility', 'Smoke, Haze', 'Thunderstorms'],
     acs: ['PA.I.C.K3'],
-    facts: [],
+    facts: [
+      { t: 'The surface analysis chart depicts fronts and high- and low-pressure systems.', c: ['awh:3-34'] },
+      { t: 'Freezing rain: a deep above-freezing layer aloft over a shallow below-freezing layer near the surface.', c: ['awh:14-4'] },
+      { t: 'Thunderstorm life cycle: cumulus (towering), mature (precipitation begins), dissipating.', c: ['awh:22-2', 'awh:22-3'] },
+      { t: 'Icing types: rime, clear, and mixed. The 152 is prohibited from flight into known icing.', c: ['awh:20-2', 'poh:2-7'] },
+      { t: 'A temperature inversion is a layer where temperature increases with altitude. It’s very stable, so very little turbulence occurs within it; surface-based inversions form on clear nights with light wind.', c: ['awh:5-12'] },
+      { t: 'Microbursts: a downdraft typically less than 1 mile across that intensifies for about 5 minutes after striking the ground. Never fly under a thunderstorm.', c: ['aim:7-1-24', 'aim:7-1-27'] }
+    ],
     refs: ['awh:ch. 11', 'awh:ch. 13', 'awh:ch. 16', 'awh:ch. 20', 'awh:ch. 22']
   },
   {
     id: 'v-wx-enroute', pave: 'V', title: 'En-Route Weather',
     user: ['Flight Categories', 'AIRMET, SIGMET, Convective SIGMET', 'METARs', 'TAFs', 'PIREPs', 'Winds Aloft'],
     acs: ['PA.I.C.K1', 'PA.I.C.K2', 'PA.I.C.R2b'],
-    facts: [],
+    facts: [
+      { t: 'Flight categories: VFR ceiling over 3,000 and visibility over 5 SM; MVFR 1,000–3,000 and/or 3–5 SM; IFR 500 to below 1,000 and/or 1 to below 3 SM; LIFR below 500 and/or below 1 SM.', c: ['aim:7-1-7'] },
+      { t: 'AIRMET Sierra: IFR and mountain obscuration. Tango: turbulence and strong surface winds. Zulu: icing and freezing levels.', c: ['aim:7-1-6'] },
+      { t: 'TAF TEMPO: temporary changes, each generally under an hour and in total less than half the period. BECMG: a gradual change. PROB30: a 30% chance.', c: ['aim:7-1-28'] },
+      { t: 'Today’s winds and temperatures aloft come from computer models; values vary by model, and some give 1,000-ft levels while others mostly 3,000-ft.', c: ['awh:27-3'] }
+    ],
     refs: ['aim:7-1-7', 'aim:7-1-28', 'awh:ch. 24', 'awh:ch. 26', 'awh:ch. 27']
   },
   {
@@ -439,7 +466,13 @@ export const OUTLINE: Topic[] = [
     id: 'v-wake', pave: 'V', title: 'Wake Turbulence', added: true,
     user: [],
     acs: ['PA.II.F.R3', 'PA.III.B.R3', 'PA.IV.A.R2d'],
-    facts: [],
+    facts: [
+      { t: 'Every airplane makes wake vortices from rotation to touchdown, because they’re a by-product of lift.', c: ['aim:7-4-4'] },
+      { t: 'Vortex strength goes up with weight and down with speed: heavy and slow is worst.', c: ['aim:7-4-3'] },
+      { t: 'Vortices sink several hundred feet per minute. Stay at or above the larger aircraft’s path.', c: ['aim:7-4-4'] },
+      { t: 'Landing behind a larger aircraft on the same runway: stay at or above its approach path and land beyond its touchdown point. Crossing runway: cross above its flight path.', c: ['aim:7-4-6'] },
+      { t: 'Departing behind a larger aircraft: rotate before its rotation point and climb above its path until you turn clear.', c: ['aim:7-4-6'] }
+    ],
     refs: ['aim:7-4-1', 'aim:7-4-6']
   },
   {
@@ -483,7 +516,11 @@ export const OUTLINE: Topic[] = [
     id: 'e-perf', pave: 'E', title: 'Aircraft Performance (Altitudes)',
     user: ['Pressure Altitude', 'Density Altitude', 'Types of Altitude'],
     acs: ['PA.I.F.K2a'],
-    facts: [],
+    facts: [
+      { t: 'Types of altitude: indicated (read off the altimeter), true (above MSL), absolute (above the ground), pressure (altimeter set to 29.92), density (pressure altitude corrected for nonstandard temperature).', c: ['phak:8-6', 'phak:8-7'] },
+      { t: 'High density altitude comes from high elevation, low pressure, high temperature, and high humidity. As density altitude rises, performance falls.', c: ['phak:4-4'] },
+      { t: 'Lean for maximum RPM in climbs above 3,000 ft; the POH climb tables assume it.', c: ['poh:4-19', 'poh:5-13'] }
+    ],
     refs: ['phak:ch. 11', 'poh:Sec. 5']
   },
   {
@@ -497,7 +534,12 @@ export const OUTLINE: Topic[] = [
     id: 'e-aeromed', pave: 'E', title: 'Aero-Medical Factors',
     user: ['Hypoxia Types and Solutions', 'Hyperventilation and Solutions', 'Spatial Disorientation and Solution', 'CO Poisoning and Solution', 'Decompression Sickness and Solutions', 'Illusions', 'Night Visual Illusions'],
     acs: ['PA.I.H.K1'],
-    facts: [],
+    facts: [
+      { t: 'Night vision starts to deteriorate at a cabin altitude as low as 5,000 ft.', c: ['aim:8-1-2'] },
+      { t: 'Scuba: wait at least 12 hours before flying up to 8,000 ft after a dive without a controlled ascent, and 24 hours after one that needed it (or before going above 8,000 ft).', c: ['aim:8-1-2'] },
+      { t: 'Hyperventilation: consciously slow your breathing; breathing into a paper bag helps.', c: ['aim:8-1-3'] },
+      { t: 'Illusions: somatogravic (acceleration feels like nose-up), graveyard spiral, the leans, autokinesis (a stationary light seems to move). Trust the instruments.', c: ['aim:8-1-5'] }
+    ],
     refs: ['phak:ch. 17', 'aim:8-1-2', 'aim:8-1-3', 'aim:8-1-4', 'aim:8-1-5']
   },
   {
