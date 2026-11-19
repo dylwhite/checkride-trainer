@@ -349,8 +349,8 @@ export const SCENARIOS: Item[] = [
       { t: 'Climb straight ahead to get on top, then turn around.', why: 'The POH plan is an immediate 180° turn back to VFR.' }
     ],
     explain: [
-      'POH: note the **compass heading** and **time**; at the nearest half minute, start a **standard-rate turn** (turn coordinator wing on the index mark) for **60 seconds**, then roll level. Check the compass reads the **reciprocal**.',
-      'Maintain altitude and airspeed with cautious elevator inputs. Avoid overcontrolling.'
+      'POH: note the **compass heading** and **time**; at the nearest half minute, start a **standard-rate left turn** (turn coordinator wing on the lower left index mark) for **60 seconds**, then roll level. Check the compass reads the **reciprocal**.',
+      'Maintain altitude and airspeed with cautious elevator inputs. Avoid overcontrolling: keep your hands off the wheel as much as possible and steer with rudder.'
     ],
     c: ['poh:3-11', 'aim:8-1-5'], xp: 20
   },
@@ -404,7 +404,7 @@ export const SCENARIOS: Item[] = [
     ],
     explain: [
       'POH limitation: **flight into known icing conditions is prohibited**.',
-      'Inadvertent encounter: **turn back or change altitude**, cabin heat full for defrost, **open the throttle**, watch for carb or air filter ice, **plan a landing at the nearest airport**, expect a **higher stall speed**, and **leave the flaps retracted**. Approach at 65–75 KIAS depending on ice.'
+      'Inadvertent encounter: **pitot heat on** (if installed), **turn back or change altitude**, cabin heat full for defrost, **open the throttle**, watch for carb or air filter ice, **plan a landing at the nearest airport**, expect a **higher stall speed**, and **leave the flaps retracted**. Approach at 65–75 KIAS depending on ice.'
     ],
     c: ['poh:2-7', 'poh:3-7', 'poh:3-8'], xp: 20
   },
@@ -634,12 +634,12 @@ export const SCENARIOS: Item[] = [
     setup: ['Near Eugene, the sectional shows an isogonic line labeled 14°30′E. Your true course is 090°.'],
     prompt: 'What’s your magnetic course?',
     choices: [
-      { t: 'About 075° (subtract easterly variation)', ok: true },
+      { t: 'About 076° (subtract easterly variation)', ok: true },
       { t: 'About 105° (add easterly variation)', why: 'East is least: subtract easterly variation.' },
       { t: 'About 090° (variation applies only to the compass card)', why: 'Variation converts true to magnetic for every course.' },
-      { t: 'About 075° true', why: '075° is the magnetic course.' }
+      { t: 'About 083° (subtract half the variation)', why: 'Subtract the full variation, 14.5°.' }
     ],
-    explain: ['Isogonic lines connect points of **equal magnetic variation**. Remember “**east is least (subtract), west is best (add)**”: 090° − 14.5° ≈ **075.5°** magnetic.'],
+    explain: ['Isogonic lines connect points of **equal magnetic variation**. Remember “**east is least (subtract), west is best (add)**”: 090° − 14.5° = 075.5°, so about **076°** magnetic.'],
     c: ['phak:8-24', 'phak:16-8'], xp: 15
   },
   {

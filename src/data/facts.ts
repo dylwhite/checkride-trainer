@@ -277,8 +277,8 @@ const T: Table[] = [
       { q: 'Turning to north in the Northern Hemisphere, when do you stop the turn on the compass?', a: 'Before reaching the heading: about 15° plus half your latitude', c: ['phak:8-26'] },
       { q: 'Turning to south, when do you stop the turn on the compass?', a: 'After passing the heading: about 15° plus half your latitude', c: ['phak:8-26'] },
       { topic: 'e-perf', q: 'What is pressure altitude?', a: 'The altitude indicated with 29.92 set in the altimeter', c: ['phak:8-6'] },
-      { topic: 'e-perf', q: 'What is density altitude?', a: 'Pressure altitude corrected for nonstandard temperature', c: ['phak:8-6'] },
-      { topic: 'e-perf', q: 'What is absolute altitude?', a: 'Height above the terrain (AGL)', c: ['phak:8-6'] },
+      { topic: 'e-perf', q: 'What is density altitude?', a: 'Pressure altitude corrected for nonstandard temperature', c: ['phak:8-7'] },
+      { topic: 'e-perf', q: 'What is absolute altitude?', a: 'Height above the terrain (AGL)', c: ['phak:8-7'] },
       { topic: 'e-perf', q: 'What is true altitude?', a: 'Actual height above mean sea level', c: ['phak:8-6'] }
     ]
   },
@@ -379,7 +379,7 @@ T.push(
     rows: [
       { q: 'What happens if you climb without leaning?', a: 'A progressively richer mixture: roughness and loss of power', c: ['phak:7-9'] },
       { q: 'Effect of carburetor heat on power and mixture?', a: 'Power drops (up to about 15%) and the mixture gets richer', c: ['phak:7-10'] },
-      { q: 'Ground effect reduces induced drag most when…?', a: 'The wing is very close to the ground (about 47% at one-tenth wingspan)', c: ['phak:5-11'], x: ['The wing is one full wingspan up', 'Only above 1,000 ft'] },
+      { q: 'Ground effect reduces induced drag most when…?', a: 'The wing is very close to the ground (about 48% at one-tenth wingspan)', c: ['phak:5-11'], x: ['The wing is one full wingspan up', 'Only above 1,000 ft'] },
       { q: 'C152 magneto check at runup: limits?', a: 'At 1,700 RPM: no more than 125 RPM drop on either mag, 50 RPM difference', c: ['poh:4-14'] },
       { q: 'Total loss of oil pressure with rising oil temperature?', a: 'Engine failure may be imminent: reduce power, pick a landing field', c: ['poh:3-14'] },
       { q: 'Low oil pressure with normal oil temperature?', a: 'Possibly a gauge or relief valve problem; land at the nearest airport to inspect', c: ['poh:3-14'] },
